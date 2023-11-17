@@ -1,0 +1,98 @@
+# Parent/child theme documentation https://devdocs.prestashop.com/1.7/themes/reference/template-inheritance/parent-child-feature/
+parent: alysum
+name: alysumchild
+display_name: Alysum Child
+version: 1.0.0
+assets:
+  use_parent_assets: true
+  # If you're using this theme as child and you want to load
+  # the parent theme assets, uncomment this line.
+  #  use_parent_assets: true
+
+  # The following lines are showing how to load assets in your page
+  # Uncomment and change value to start loading css or js files
+  #  css:
+  #    all:
+  #      - id: custom-lib-style
+  #        path: assets/css/custom-lib.css
+  #    product:
+  #      - id: product-style
+  #        path: assets/css/product.css
+  #        media: all
+  #        priority: 200
+  js:
+    all:
+      - id: masonry
+        path: assets/js/libs/masonry.js
+        priority: 100
+        position: bottom
+        attributes: defer
+      - id: siema
+        path: assets/js/libs/siema.js
+        priority: 100
+        position: bottom
+        attributes: defer
+      - id: glide
+        path: assets/js/libs/glide.js
+        priority: 100
+        position: bottom
+        attributes: defer
+      - id: cookies
+        path: assets/js/libs/cookies.js
+        priority: 100
+        position: bottom
+        attributes: defer
+      - id: alysum
+        path: assets/js/alysum.js
+        priority: 101
+        position: bottom
+        attributes: defer
+    category:
+      - id: category-imagesLoaded
+        path: assets/js/libs/imagesLoaded.js
+        position: bottom
+        priority: 99
+        attributes: defer
+      - id: category-page
+        path: assets/js/pages/category.js
+        position: bottom
+        priority: 100
+        attributes: defer
+    module-ph_simpleblog-single:
+      - id: blog-sharer
+        path: assets/js/libs/sharer.js
+        position: bottom
+        priority: 99
+        attributes: defer
+    product:
+      - id: product-imagesLoaded
+        path: assets/js/libs/imagesLoaded.js
+        position: bottom
+        priority: 99
+        attributes: defer
+      - id: product-sharer
+        path: assets/js/libs/sharer.js
+        position: bottom
+        priority: 99
+        attributes: defer
+      - id: product-page
+        path: assets/js/pages/product.js
+        position: bottom
+        priority: 100
+        attributes: defer
+  css:
+    category:
+      - id: category-style
+        path: assets/css/pages/category.css
+        media: all
+        priority: 200
+    stores:
+      - id: stores-style
+        path: assets/css/stores.css
+        media: all
+        priority: 200
+    order:
+      - id: order-style
+        path: assets/css/order.css
+        media: all
+        priority: 200

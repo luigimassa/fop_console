@@ -1,0 +1,672 @@
+/**
+ * 2020- Antonio Baena Sánchez
+ *
+ * MODULE AbsCustomerQuestions
+ *
+ * @author    Antonio Baena SÃ¡nchez
+ * @copyright Copyright (c) permanent, Antonio Baena Sánchez
+ * @license   Addons PrestaShop license limitation
+ * @version   1.0.5
+ *
+ * NOTICE OF LICENSE
+ *
+ * Don't use this module on several shops. The license provided by PrestaShop Addons
+ * for all its modules is valid only once for a single shop.
+ *
+ */
+
+.page-product-box {
+    padding-bottom: 10px;
+}
+
+h3.abs_customerq.page-product-heading {
+    color: #232323;
+    font-weight: 600;
+    font-size: 1.350rem;
+    line-height: 20px;
+    padding: 0;
+    margin: 25px 0 15px;
+    position: relative;
+}
+
+.abs_customerq .abs_text_question {
+    font-size: 21px;
+    line-height: 1.3;
+    color: #0F1111;
+    padding: 0 0 14px;
+    text-align: justify;
+}
+
+.abs_customerq .abs_text_minus {
+    color: #565959 !important;
+    font-size:13px;
+    line-height: 1.5;
+    margin-top:4px;
+    margin-bottom:14px;
+}
+
+.abs_customerq .divisor {
+    height: 24px;
+    margin-bottom: -18px;
+    background: -webkit-linear-gradient(to bottom,rgba(0,0,0,.14),rgba(0,0,0,.03) 3px,transparent);
+    background: linear-gradient(to bottom,rgba(0,0,0,.14),rgba(0,0,0,.03) 3px,transparent);
+    z-index: 0;
+}
+
+.abs_customerq .divisor::after {
+    display: block;
+    width: 100%;
+    height: 24px;
+    background-color: transparent;
+    background: -webkit-linear-gradient(to right,#fff,rgba(255,255,255,0),#fff);
+    background: linear-gradient(to right,#fff,rgba(255,255,255,0),#fff);
+    z-index: 1;
+    content: "";
+}
+
+.abs_customerq.mb-20 {
+    margin-bottom:20px;
+}
+
+#abs_customerquestions_block_page {
+    padding: 18px;
+}
+
+#abs_customerquestions_block_page .abs_row.absq_answer {
+    margin-bottom: 16px;
+}
+
+hr.abs_cq_divid {
+    background-color: transparent;
+    display: block;
+    height: 1px;
+    border-width: 0;
+    border-top: 1px solid #e7e7e7;
+    line-height: 19px;
+    margin-top: 0;
+    margin-bottom: 14px;
+}
+
+.abs_customerq .abs_customerq_block {
+    margin-bottom: 14px;
+}
+
+.abs_customerq_block .inputaskabscustomerq {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.abs_customerq_block .inputaskabscustomerq::before {
+    font-family: 'FontAwesome';
+    content: '\f002';
+    position: absolute;
+    left: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 24px;
+    color: #777;
+}
+
+.abs_customerq_block .form-control{
+    padding: 3px 5px;
+    font-size:13px;
+    line-height: 1.42857;
+    background-color: #fff;
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.abs_customerq_block .inputaskabscustomerq:focus-within::before {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.abs_customerq_block .inputaskabscustomerq .borro_abs_cq::before {
+    font-family: 'FontAwesome';
+    content: '\f057';
+    position: absolute;
+    right: 12px;
+    margin-top: 12px;
+    font-weight: normal;
+    font-size: 28px;
+    display: block;
+}
+.borro_abs_cq {
+    color: #bbc0c4;    
+}
+
+.borro_abs_cq:hover {
+    cursor:pointer;
+    color: #777;
+}
+
+.abs_customerq_block .inputaskabscustomerq .borro_abs_cq {
+    display:none;
+}
+
+.a-input-abscustomerq.form-control {
+    padding-left: 40px;
+    height: 42px;
+    border: 2px solid #888C8C;
+    border-radius: 8px;
+    color: #0F1111;
+}
+
+.a-input-abscustomerq.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.a-input-abscustomerq.form-control::placeholder {
+    color: #0F1111;
+    opacity: 0.6;
+}
+
+.abs_row::after {
+    clear: both;
+}
+
+.abs_row::before, .abs_row::after {
+    content: " ";
+    display: table;
+}
+
+.abs_customerq_container {
+    margin-top: 22px;
+    margin-bottom: 12px;
+}
+
+.abs_customerquestion {
+    margin-top: 30px;
+}
+
+.vote_abscustomerquestion.con_abs {
+    color: #000;
+    text-align:center;
+    border-right: 1px solid #ddd;
+    width: 65px;
+    max-height: 80px;
+}
+
+.abs_question_text.con_abs {
+    color: #000;
+    padding-left: 1%;
+    padding-top: 6px;
+    width: calc(100% - 65px);
+}
+
+.absq_encabezado.con_abs, .abs_customerquestions_aclaro {
+    font-weight: 700;
+    color: #0F1111;
+    font-size: 14px;
+    line-height: 20px;
+    width: 100px;
+}
+
+.absq_pregunta.con_abs, .absq_respuesta.con_abs {
+    font-size: 14px;
+    line-height: 20px; 
+    width: calc(100% - 100px);
+}
+
+.absq_pregunta.con_abs {
+    color: #007185;
+}
+
+.absq_respuesta.con_abs {
+    color: #0F1111;
+}
+
+.absq_responde, .absq_pregunta.con_abs, absq_moreanswers {
+    margin-bottom: 8px;
+    display:block;
+}
+
+.absq_moreanswers, a.absq_moreanswers:hover {
+    font-size:13px;
+    margin-right:10px;
+}
+
+.absq_respuesta .absq_textshort {
+    display: inline;
+}
+
+.absq_respuesta .absq_textlong, .absq_restanswers, #abs_customerquestions_block_search, #abs_customerquestions_block_no_results {
+    display: none;
+}
+
+.absq_respuesta .absq_seemore, .absq_useful, .absq_useless {
+    line-height: 19px;
+    padding: 2px 5px 2px 5px;
+    text-align: left;
+    color: #000 !important;
+    font-size: 13px;
+    border: 1px solid #515151;
+    cursor: pointer;
+    border-radius: 3px;
+    display: inline;
+    margin-left:5px;
+}
+
+.abs_cq_usefullness {
+    margin-bottom: 6px;
+}
+.absq_respuesta .absq_seeless {
+    line-height: 19px;
+    padding: 2px 5px 2px 5px;
+    text-align: left;
+    color: #111;
+    font-size: 13px;
+    border-color: #adb1b8 #a2a6ac #8d9096;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left:5px;
+    display: none;
+}
+
+.absq_responde .absq_user, .absq_pregunta .absq_user {
+    color: #666;
+    font-size:14px;
+    font-weight:600;
+}
+
+.absq_responde .absq_autor, .absq_pregunta .absq_autor {
+    display:block;
+    color: #666;
+    font-size:13px;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.con_abs {
+    float: left;
+    position: relative;
+    min-height: 1px;
+}
+
+.vote_abs_up, .vote_abs_down{
+    list-style: none;
+    display:block;
+    width: 65px;
+    content: ' ';
+}
+
+.abs-cq-success::before, .abs-cq-error::before {
+    font-family: 'FontAwesome';
+    font-weight: bold;
+    color: limegreen;
+    content: '\f058';
+    position: absolute;
+    font-size: 36px;
+    top: 30px;
+    left: -10px;
+}
+
+.abs-cq-error::before {
+    content: '\f071';
+    color: orangered;
+}
+
+.voto_abs_up::before, .voto_abs_down::before {
+    font-family: 'FontAwesome';
+    position: relative;
+    font-weight: bold;
+    top: 3px;
+    font-size:30px;
+}
+
+.voto_abs_down::before {
+    content: '\f078';
+}
+
+.voto_abs_up::before {
+     content: '\f077';   
+}
+
+.voteabscustomerquestion .vote_abs_actual {
+    display:block;
+    text-align:center;
+    font-size:15px;
+}
+
+.vote_abs_up a:link, .vote_abs_up a:visited, .vote_abs_down a:link, .vote_abs_down a:visited {
+    color: #888;
+    text-decoration: none;
+}
+
+.vote_abs_up a:hover {
+    color: green;
+}
+
+.vote_abs_down a:hover {
+    color:red;
+}
+
+.absq_chevron::before {
+    font-family: 'FontAwesome';
+    font-size:8px;
+    color: #0F1111;
+    content: '\f078';
+    font-weight:400;
+}
+
+.absq_chevron_up::before {
+    font-family: 'FontAwesome';
+    font-size: 8px;
+    color: #0F1111;
+    content: '\f077';
+    font-weight: 400;
+    top: -3px;
+    position: relative;
+}
+
+.absq_morequestions {
+    text-align: center;
+}
+
+.boton_absq_moreq:hover {
+background-color: #f3f3f3;
+}
+
+#abs_loading, #abs_postquestion, #abs_postanswer {
+    position: relative;
+    text-align: center;
+    display: none;
+}
+
+#abs_postquestion, #abs_popstanswer {
+    top: 2rem;
+}
+
+.abs_loading_animation {
+    --animate-duration: 3s;
+    position: absolute;
+    width: 100%;
+    top: -15px;
+    z-index: 9000;
+}
+
+#abs_postanswer .abs_loading_animation {
+    left: -40px;
+}
+
+#abs_postquestion .abs_loading_animation {
+    left: -40px;
+    top: -35px;
+}
+
+.abs_loading_img::before {
+    font-family: 'FontAwesome';
+    content: '\f002';
+    font-weight: bold;
+    font-size: 80px;
+    color: #d6d4d4;
+    font-style: normal;
+}
+
+.abs_postquestion_img::before, .abs_postanswer_img::before {
+    /*font-family: 'FontAwesome';*/
+    content: '...';
+    font-weight: bold;
+    font-size: 80px;
+    color: #d6d4d4;
+}
+
+.abs_loading_img, .abs_postquestion_img, .abs_postanswer_img {
+    color: #0F1111;
+    font-size:30px;
+}
+
+.abs_question_text_noresults.con_abs {
+    color: #0F1111;
+    font-size: 14px;
+    line-height: 20px;
+    width: 100%
+}
+
+.abs_customerquestions_post_question {
+    padding: 18px 22px;
+border: 1px solid #d6d4d4;
+background: #fbfbfb;
+border-radius: 8px;
+}
+
+.abs_customerq_aclaro {
+    color: #555454;
+}
+
+.abs_cq_matches{
+    background-color: #fff2ac;
+    color:#000 !important;
+}
+
+.abs_cq_usefullness {
+    font-size: 13px;
+    color: #565959;
+}
+
+.abs_customerquestions_aclaro {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+body#module-abscustomerquestions-absquestion #breadcrumb_wrapper,
+body#module-abscustomerquestions-absquestion .breadcrumb {
+    display:none;
+}
+
+.abscustomerq-link {
+    color: #007185;
+    text-decoration:none;
+}
+
+.abscustomerq-link2 {
+    color: #0066c0;
+    text-decoration:none;
+}
+
+.abscustomerq-link:hover, .abscustomerq-link2:hover {
+    color: #c7511f;
+    text-decoration:underline;
+}
+
+.absq-reported, .absq_no_answers_for_now, .absq_c_seller {
+    color: #c7511f;    
+}
+
+.absq_moreanswers .absq_chevron::before {
+color:inherit;
+}
+
+.absq_c_seller {
+    border-top: 1px dashed #A9A9A9;
+    border-bottom: 1px dashed #A9A9A9;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #c7511f;  
+    letter-spacing: .5px;
+    padding: 2px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+span[id^="abs_cq_useful"] {
+    color: #000;
+}
+
+#abs_customerquestions_block_page .absq_responde {
+    font-size:15px;
+}
+
+#abs_customerquestions_block_page .absq_autor {
+    margin-top:6px;
+    margin-bottom:12px;
+    font-size:13px !important;
+}
+
+#abs_customerquestions_block_search #absq_mq_search, #abs_customerquestions_block_no_search #absq_mq_no_search {
+margin-bottom:12px;
+}
+
+.abs_cq_pagination_block {
+    text-align:center;
+    color: #0F1111;
+    font-size:14px;
+    line-height:20px;
+    margin-bottom:20px;
+    margin-top:30px;
+}
+
+ul.abs_cq_pagination_list::after {
+    clear: both;
+}
+
+ul.abs_cq_pagination_list::after, ul.abs_cq_pagination_list::before {
+    display: table;
+    content: "";
+    line-height: 0;
+    font-size: 0;
+}
+
+.abs_cq_pagination_list {
+    display: inline-block;
+    margin: 0;
+    padding:0;
+}
+
+ul.abs_cq_pagination_list li {
+    background-color: #fff;
+    display: block;
+    float: left;
+    line-height: 16px;
+    list-style: none;
+    position: relative;
+}
+
+ul.abs_cq_pagination_list li {
+    margin-right: 4px;
+}
+
+ul.abs_cq_pagination_list li a, ul.abs_cq_pagination_list li.abs_cq_page_disabled {
+    display: block;
+    text-decoration: none;
+}
+
+ul.abs_cq_pagination_list li.abs_cq_page_disabled {
+    color: #555;
+    border: 1px solid transparent;
+}
+
+ul.abs_cq_pagination_list li a, ul .abs_cq_page_disabled {
+    padding: 8px 12px 7px 13px;
+}
+
+ul .abs_cq_page_disabled {
+    cursor: not-allowed;
+}
+
+ul.abs_cq_pagination_list li.abs_cq_page a{
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset;
+    /* background: #eff1f3; */
+    /* background: -webkit-linear-gradient(top,#f7f8fa,#e7e9ec); */
+    background: linear-gradient(to bottom,#f7f8fa,#e7e9ec);
+    border: 1px solid #6c6e73;
+    border-color: #adb1b8 #a2a6ac #8d9096;
+    text-decoration:none;
+}
+
+ul.abs_cq_pagination_list li.abs_cq_page_current a{
+    font-weight: 700;
+    background-color: #fff;
+    background-image: none;
+    color: #c45500 !important;
+    border-color: #e77600;
+    cursor: not-allowed;
+}
+
+.abs-cq-space {
+    display: inline-block;
+    width: .385em;
+}
+
+ul.abs_cq_pagination_list li a.abs_cq_gopage {
+    color: #0F1111;
+}
+
+ul.abs_cq_pagination_list li a.abs_cq_gopage:hover {
+    background: #e0e3e9;
+    background: -webkit-linear-gradient(top,#e7eaf0,#d9dce1);
+    background: linear-gradient(to bottom,#e7eaf0,#d9dce1);
+    border-color: #a2a6ac #979aa1 #82858a;
+}
+
+.abs_cq_pagination_block .abs_cq_divid{
+    margin-top:24px;
+}
+
+i.voto_abs_up, i.voto_abs_down, i.abs-cq-success, i.abs-cq-error {
+    font-style: normal;
+}
+
+.vote_abs_actual {
+    font-size:13px;
+}
+
+.abs_customerq_block {
+    background: #fff;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+@media (max-width:767px){
+.abs_customerq .abs_text_question {
+    margin-top: 20px;
+    font-size: 16px;
+    }
+}
+
+/*FIN PAGINATION*/
+
+/* FIN DE TODO */
+
+@media (max-width: 479px){
+    #abs_alsoviewedproducts .bt_abs_alsoviewedproducts {
+        top: 52px;
+    }
+    
+    .header-abs_alsoviewedproducts h3.page-product-heading {
+        font-size:16px;
+    }
+    
+    #abs_alsoviewedproducts .header-abs_alsoviewedproducts {
+        height: 86px !important;
+    }
+}
+
+@media (min-width: 480px) and (max-width:767px){
+.abs_customerq .abs_text_question {
+    margin-top: 20px;
+    font-size: 16px;
+    }
+}
+
+@media (max-width:767px){
+    .header-abs_alsoviewedproducts h3.page-product-heading {
+        text-align:center;
+    }
+    
+    .bt_abs_alsoviewedproducts {
+        position: absolute;
+        top: 36px;
+        left: 0;
+        width: 100%;
+        text-align:center;
+    }
+}

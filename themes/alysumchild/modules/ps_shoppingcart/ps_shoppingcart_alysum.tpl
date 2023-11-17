@@ -1,0 +1,1 @@
+{include file='checkout/_partials/cart-detailed-totals.tpl' cart = $cart}

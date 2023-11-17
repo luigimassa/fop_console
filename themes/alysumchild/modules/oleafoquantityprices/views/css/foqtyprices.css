@@ -1,0 +1,362 @@
+.foqty_left {
+	float: left;
+}
+.foqty_right {
+	float:right;
+}
+
+.foqty_btn_updateqty_up, .foqty_btn_updateqty_down {
+	margin: 2px; 
+	padding: 2px 0 2px 2px; 
+	font-size: 12px; 
+	background-color: #CCCCCC; 
+	cursor:pointer;
+}
+
+.foqty_total_info {
+	padding-top:5px;
+	padding-bottom:0px;
+	margin-bottom:0px;
+	font-style: italic;
+}
+
+.oleaqty_btnadd {
+	padding:0 !important;
+}
+.oleaqty_btnadd img {
+	width: 20px;
+	height: 20px;
+}
+
+.olea_nowrap {
+	white-space: nowrap;
+}
+.tabolea_price .olea_price {
+	clear:both;
+    padding-bottom: 5px;
+	text-align:right;
+	white-space:nowrap;
+}
+
+.tabolea_price .olea_group_price {
+	font-size: 0.9em;
+    font-style: italic;
+    text-decoration: line-through;
+}
+table.tabolea_table th {
+	text-align: center;
+}
+table.tabolea_table td {
+	padding: 4px;
+}
+table td .foqty_colorinfo {
+	width:25px;
+	height:25px;
+	margin: auto;
+	
+}
+#oleaqty_pricestable {
+	width: auto;
+	max-width: 100%;
+	border-collapse : separate;
+}
+#oleaqty_pricestable.table-product-discounts tr td li {
+	display:inline;
+}
+#oleaqty_pricestable.table-product-discounts tr td li.foqty_separator:first-child {
+	display: none;
+}
+#oleaqty_pricestable.table-product-discounts tr td,
+#oleaqty_pricestable.table-product-discounts tr th {
+	width: auto;
+	text-align: center;
+}
+
+#oleaqty_pricestable.table-product-discounts tr td.foqty_col_add {
+/*	width:125px;*/
+/*	background-color: salmon;*/
+}
+
+#oleaqty_pricestable.table-product-discounts tr td .exclusive {
+  background-image: linear-gradient(#009AD0, #007AB7);
+  border-color: #0079B6 #006FA8 #012740;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  color: #FFFFFF;
+  font-size: 1.4em;
+  padding: 4px;
+  position: relative;
+}
+
+#oleaqty_pricestable.table-product-discounts tr td .box-info-product  {
+    display: inline;
+    clear:both;
+    float: right;
+    border: 0;
+    background: transparent;
+}
+#oleaqty_pricestable.table-product-discounts tr td .box-info-product .exclusive {
+	display:inline;
+	float:right;
+	clear:both;
+	border:none;
+	margin-top:8px;
+}
+
+#oleaqty_pricestable.table-product-discounts tr td .box-info-product .exclusive:before {
+	border: none;
+	line-height: 42px;
+	font-size: 21px;
+}
+
+#oleaqty_pricestable.table-product-discounts tr td .box-info-product .exclusive span {
+	border: none;
+	line-height:0.5;
+	font-size: 14px;
+}
+
+.oleaqty_btnaddglobal:not(.added) span.txt_added {
+	display:none!important;
+}
+.oleaqty_btnaddglobal.added span.txt_addtocart {
+	display:none!important;
+}
+
+
+#oleaqty_pricestable.table-product-discounts tr td .ajax_add_to_cart_button {
+  font: 700 17px/21px Arial, Helvetica, sans-serif;
+  color: white;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  border: 1px solid;
+  border-color: #0079b6 #006fa8 #012740 #006fa8; }
+#oleaqty_pricestable.table-product-discounts tr td .ajax_add_to_cart_button span {
+    border: 1px solid;
+    border-color: #06b2e6;
+    padding: 3px 5px;
+    display: block;
+    background: #009ad0;
+    background: -moz-linear-gradient(top, #009ad0 0%, #007ab7 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #009ad0), color-stop(100%, #007ab7));
+    background: -webkit-linear-gradient(top, #009ad0 0%, #007ab7 100%);
+    background: -o-linear-gradient(top, #009ad0 0%, #007ab7 100%);
+    background: -ms-linear-gradient(top, #009ad0 0%, #007ab7 100%);
+    background: linear-gradient(to bottom, #009ad0 0%, #007ab7 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#009ad0', endColorstr='#007ab7',GradientType=0); }
+#oleaqty_pricestable.table-product-discounts tr td .ajax_add_to_cart_button:hover {
+    border-color: #01314e #004b74 #0079b6 #004b74; }
+#oleaqty_pricestable.table-product-discounts tr td .ajax_add_to_cart_button:hover span {
+      filter: none;
+      background: #0084bf; }
+
+.oleafoqty_divqtymulti, .oleafoqty_divqty {
+	display:inline-block;
+}
+#oleaqty_pricestable.byqty .oleafoqty_divqtymulti {
+	display:none;
+}
+#oleaqty_pricestable.byqtymulti .oleafoqty_divqty {
+	display:none;
+}
+	
+#quantity_wanted_multi_p label {
+  display: block;
+  margin-bottom: 7px;
+}
+#quantity_wanted_multi_p input {
+  width: 78px;
+  height: 27px;
+  padding: 0 6px;
+  border: 1px solid #d6d4d4;
+  line-height: 27px;
+}
+
+.content_prices.oleafoqty_hasspanprices #reduction_percent,
+.content_prices.oleafoqty_hasspanprices #reduction_amonut,
+.content_prices.oleafoqty_hasspanprices #old_price {
+	display: none!important;
+}
+
+.content_prices.oleafoqty_hasspanprices .our_price_display,
+.content_prices.oleafoqty_hasspanprices .our_price_display .price {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+#oleafoqty_spansprices .price {
+  font-weight: 600;
+  font-size: 29px;
+  line-height: 32px;
+  font-family: "Open Sans", sans-serif;
+  color: #333;
+}
+
+#oleafoqty_totalofspans .price {
+	font-size: 18px;
+}
+
+#oleafoqty_spanbyqty {
+	float:left;
+	margin-top:4px;
+	margin-right:4px;
+}
+
+#oleaqty_mainmultiqtytotal {
+    margin-top: 4px;
+    margin-left: 4px;
+    float: left;
+}
+
+#oleaqty_pricestable.table-product-discounts table.footable-details  {
+	padding: 0;	
+	margin:0;
+	border:0;
+}
+
+#oleaqty_pricestable.table-product-discounts tr.footable-detail-row > td {
+	background-color: yellow;
+	margin: 0;
+	padding: 0;
+}
+#oleaqty_pricestable.table-product-discounts .footable-details tr th,
+#oleaqty_pricestable.table-product-discounts .footable-details tr td,
+#oleaqty_pricestable.table-product-discounts .footable-details tr td p {
+	text-align : center;
+	background-color: white;
+	border-left:0;
+	padding: 5px;
+    font-weight: normal;
+}
+#oleaqty_pricestable.table-product-discounts .footable-details tr.oleafoqty_combinationrow th {
+	text-align : right;
+}
+#oleaqty_pricestable.table-product-discounts .footable-details tr.oleafoqty_combinationrow td,
+#oleaqty_pricestable.table-product-discounts .footable-details tr.oleafoqty_combinationrow td p {
+	text-align : left;
+	margin:0;
+    font-weight: bold;
+}
+
+
+#oleaqty_pricestable.table-product-discounts.breakpoint-lg .foqty_lg-hidden,
+#oleaqty_pricestable.table-product-discounts.breakpoint-md .foqty_md-hidden,
+#oleaqty_pricestable.table-product-discounts.breakpoint-sm .foqty_sm-hidden,
+#oleaqty_pricestable.table-product-discounts.breakpoint-xs .foqty_xs-hidden {
+	display: none !important;
+/*	width: 0px;
+	border:0;
+	padding:0;
+	margin:0;*/
+}
+/*#oleaqty_pricestable.table-product-discounts.breakpoint-lg .foqty_lg-hidden * {
+	display:none;
+}*/
+
+#oleaqty_pricestable .fooicon-plus:before {
+	content: "\f067";
+	content: "\f152";
+	font-size: 1.2em;
+}
+#oleaqty_pricestable .fooicon-minus:before {
+	content: "\f068";
+	content: "\f150";
+	font-size: 1.2em;
+}
+
+/**
+ * TABLES FILTRE
+ */
+/* Hidde footable native filter */
+.footable-filtering {
+	display: none;
+}
+
+.foqty_filters fieldset {
+	padding-bottom: 3px;
+	padding-right: 20px;
+	display: inline-block;
+    vertical-align: top;
+}
+
+.foqty_filters fieldset label {
+	vertical-align: top;
+	display: inline-block;
+}
+
+.foqty_filters .foqty_filters_attribute_list {
+	display: inline-block;
+	min-width: 130px;
+}
+
+.foqty_filters .foqty_filters_attribute_list .form-control {
+	max-width: 230px;
+}
+
+.foqty_filters .foqty_filters_attribute_list .form-control option {
+	background: #fff;
+	color: #666;
+}
+
+.foqty_filters .foqty_filters_attribute_list ul {
+	clear: both;
+}
+
+.foqty_filters .foqty_filters_attribute_list ul li {
+	float: left;
+	margin-right: 10px;
+}
+
+.foqty_filters .foqty_filters_attribute_list input.attribute_radio {
+	float: left;
+	margin-left: 3px;
+}
+
+.foqty_filters .foqty_filters_attribute_list div.radio, .foqty_filters .foqty_filters_attribute_list div.radio span,
+	.foqty_filters .foqty_filters_attribute_list div.radio input {
+	float: none;
+	display: inline-block;
+}
+
+.foqty_filters .foqty_filters_attribute_list .foqty_filter_color_picker {
+	list-style-type: none;
+}
+
+.foqty_filters .foqty_filters_attribute_list .foqty_filter_color_picker li {
+	float: left;
+	margin: 0 3px 3px 0;
+	padding: 1px;
+	border: 1px solid #d6d4d4;
+	clear: none;
+	width: 26px;
+	height: 26px;
+}
+
+.foqty_filters .foqty_filters_attribute_list .foqty_filter_color_picker li span.foqty_filter_color_pick {
+	display: block;
+	height: 22px;
+	width: 22px;
+	cursor: pointer;
+}
+
+.foqty_filters .foqty_filters_attribute_list .foqty_filter_color_picker li span.foqty_filter_color_pick img {
+	display: block;
+	height: 22px;
+	width: 22px;
+}
+
+.foqty_filters .foqty_filters_attribute_list .foqty_filter_color_picker li.selected {
+	border: 1px solid #4d4d4d;
+}
+
+#oleaqty_pricestable.table-product-discounts tr th.foqty_filters_line {
+	text-align: left;
+	padding-bottom: 0;
+}
+
+.foqty_filters .foqty_filters_attribute_list .foqty_filter_color_picker li span.foqty_filter_color_nofilter {
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    color: darkred;
+}

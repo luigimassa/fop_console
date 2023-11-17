@@ -1,0 +1,260 @@
+.footable_start_hidden {
+	display:none;
+}
+.foq_left {
+	float: left;
+}
+.foq_right {
+	float:right;
+}
+.foq_hidden {
+	display: none!important;
+}
+
+.foqtable td .foq_colorinfo {
+	width:25px;
+	height:25px;
+	margin: auto;
+}
+
+table.foqtable .box-info-product {
+	border: 0px;
+}
+
+table.foqtable .box-info-product .foq_btnaddglobal.exclusive:before {
+	font-size: 21px;
+    line-height: 35px;
+    width: 40px;
+}
+table.foqtable .box-info-product .foq_btnaddglobal.exclusive:after {
+	left:40px;
+}
+table.foqtable .box-info-product .foq_btnaddglobal.exclusive span {
+	font-size: 16px;
+    padding: 8px 13px 8px 50px;
+}
+table.foqtable .foq_btnaddglobal {
+/* 	white-space: nowrap; */
+	margin-top: 5px;
+	cursor: pointer;
+}
+table.foqtable .foq_btnaddglobal:not(.added) span.txt_added {
+	display:none!important;
+}
+table.foqtable .foq_btnaddglobal.added span.txt_addtocart {
+	display:none!important;
+}
+
+
+/**
+ * FOQ Tables
+ */
+table.foqtable {
+	width: auto;
+	max-width: 100%;
+	border-collapse : separate;
+	table-layout: fixed;
+}
+
+table.foqtable.table-product-discounts tr th,
+table.foqtable.table-product-discounts tr td {
+    width: auto;
+    text-align: center;
+}
+
+
+.foqtable.table-product-discounts table.footable-details  {
+	padding: 0;	
+	margin:0;
+	border:0;
+}
+
+.foqtable.table-product-discounts tr.footable-detail-row > td {
+	background-color: yellow;
+	margin: 0;
+	padding: 0;
+}
+.foqtable.table-product-discounts .footable-details tr th {
+	text-align : center;
+	background-color: #fbfbfb;
+	border-left:0;
+	padding: 5px;
+    font-weight: normal;
+    width:30%;
+}
+.foqtable.table-product-discounts .footable-details tr td,
+.foqtable.table-product-discounts .footable-details tr td p {
+	text-align : center;
+	background-color: white;
+	border-left:0;
+	padding: 5px;
+    font-weight: normal;
+}
+.foqtable.table-product-discounts .footable-details tr.oleafoqty_combinationrow th {
+	text-align : right;
+}
+.foqtable.table-product-discounts .footable-details tr.oleafoqty_combinationrow td,
+.foqtable.table-product-discounts .footable-details tr.oleafoqty_combinationrow td p {
+	text-align : left;
+	margin:0;
+    font-weight: bold;
+}
+
+
+/**
+ * Row expanders
+ */
+.foqtable .foq-celltoggle {
+	padding: 13px;
+}
+.foqtable .foq-celltoggle .footable-toggle{
+	margin: 0;
+}
+.foqtable .fooicon-plus:before {
+	content: "\f067";
+	content: "\f152";
+	font-size: 1.2em;
+}
+.foqtable .fooicon-minus:before {
+	content: "\f068";
+	content: "\f150";
+	font-size: 1.2em;
+}
+
+/**
+ * TABLES FILTRE
+ */
+/* Hidde footable native filter */
+.footable-filtering {
+	display: none;
+}
+
+.foqtable .foq_filters_container {
+	text-align: left;
+	padding-bottom: 0;
+}
+
+.foqtable .foq_filters_container .foq_filters {
+	text-align: left;
+}
+
+.foq_filters fieldset {
+	padding-bottom: 3px;
+	padding-right: 20px;
+	display: inline-block;
+    vertical-align: top;
+}
+
+.foq_filters fieldset label {
+	vertical-align: top;
+	display: inline-block;
+}
+
+.foq_filters .foq_filters_attribute_list {
+	display: inline-block;
+	min-width: 130px;
+}
+
+.foq_filters .foq_filters_attribute_list .form-control {
+	max-width: 230px;
+}
+
+.foq_filters .foq_filters_attribute_list .form-control option {
+	background: #fff;
+	color: #666;
+}
+
+.foq_filters .foq_filters_attribute_list ul {
+	clear: both;
+}
+
+.foq_filters .foq_filters_attribute_list ul li {
+	float: left;
+	margin-right: 10px;
+}
+
+.foq_filters .foq_filters_attribute_list input.attribute_radio {
+	float: left;
+	margin-left: 3px;
+}
+
+.foq_filters .foq_filters_attribute_list div.radio,
+.foq_filters .foq_filters_attribute_list div.radio span,
+.foq_filters .foq_filters_attribute_list div.radio input {
+	float: none;
+	display: inline-block;
+}
+
+.foq_filters .foq_filters_attribute_list .foq_filter_color_picker {
+	list-style-type: none;
+}
+
+.foq_filters .foq_filters_attribute_list .foq_filter_color_picker li {
+	float: left;
+	margin: 0 3px 3px 0;
+	padding: 1px;
+	border: 1px solid #d6d4d4;
+	clear: none;
+	width: 26px;
+	height: 26px;
+}
+
+.foq_filters .foq_filters_attribute_list .foq_filter_color_picker li span.foq_filter_color_pick {
+	display: block;
+	height: 22px;
+	width: 22px;
+	cursor: pointer;
+}
+
+.foq_filters .foq_filters_attribute_list .foq_filter_color_picker li span.foq_filter_color_pick img {
+	display: block;
+	height: 22px;
+	width: 22px;
+}
+
+.foq_filters .foq_filters_attribute_list .foq_filter_color_picker li.selected {
+	border: 1px solid #4d4d4d;
+}
+
+.foq_filters .foq_filters_attribute_list .foq_filter_color_picker li span.foq_filter_color_nofilter {
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    color: darkred;
+}
+
+/**
+ * DIVERS
+ */
+ .foqtable .box-info-product {
+ 	clear:both;
+ 	float: right;
+ }
+ 
+ table.foqtable.table-product-discounts.foqtable_vertical span.foq_par_x {
+    display: block;
+}
+ /** 
+  * Per block specificity
+  */
+.oleafoq_priceblock table.foqtable.table-product-discounts {
+ 	width:100%;
+ }
+.oleafoq_priceblock table.foqtable.table-product-discounts td,
+.oleafoq_priceblock table.foqtable.table-product-discounts th {
+    padding: 5px;
+}
+.oleafoq_priceblock table.foqtable.table-product-discounts td .foq_total_text_msg {
+	display: none;
+}
+.oleafoq_priceblock table.foqtable.table-product-discounts span.foq_par_x {
+    display: block;
+}
+
+
+.oleafoq_productbuttons table.foqtable.table-product-discounts td .foq_total_text_msg {
+	display: none;
+}
+.oleafoq_productbuttons table.foqtable.table-product-discounts span.foq_par_x {
+    display: block;
+}
