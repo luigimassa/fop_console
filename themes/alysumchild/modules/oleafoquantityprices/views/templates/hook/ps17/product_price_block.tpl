@@ -30,7 +30,7 @@
         </span>
     <span class="pezzi-per-cartone">
         {foreach from=$product.features item=record}
-            {if $record.id_feature == 7}{$record.name}: {$record.value}{/if}
+            {if $record.id_feature == 7}{$record.value} {$record.name}{/if}
         {/foreach}
     </span>
 </div>
