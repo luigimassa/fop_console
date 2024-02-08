@@ -21,13 +21,13 @@
     <span class="price" content="{$product.price_amount}">
         {if isset($display_fromprice) && $display_fromprice && isset($oleafoqty_bestprice) && count($oleafoqty_bestprice)}
             {$oleafoqty_bestprice.price_displayed|escape:'htmlall':'UTF-8'}
+                &nbsp;{l s='for' d='Shop.Modules.Oleafoquantityprices'}&nbsp;
+            {$oleafoqty_bestprice.quantity|escape:'htmlall':'UTF-8'}
         {else}
             {$product.price}
         {/if}
     </span>
-    <span class="forlabel">
-    {l s='for' d='Shop.Modules.Oleafoquantityprices'}
-        </span>
+    <br>
     <span class="pezzi-per-cartone">
         {foreach from=$product.features item=record}
             {if $record.id_feature == 7}{$record.value} {$record.name}{/if}
