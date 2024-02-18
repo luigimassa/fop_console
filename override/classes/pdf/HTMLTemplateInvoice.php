@@ -48,13 +48,13 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
             }
 
             $costo_conai_prodotto = $this->getCostoConai($order_detail);
-            $costo_conai = is_bool($costo_conai_prodotto)?0:(float)$costo_conai_prodotto['costo_conai'];
-            $fascia_conai = is_bool($costo_conai_prodotto)?'':(string)$costo_conai_prodotto['zone_name'];
-            $totale_costo_conai +=  $costo_conai ;
+            $costo_conai = is_bool($costo_conai_prodotto) ? 0 : (float)$costo_conai_prodotto['costo_conai'];
+            $fascia_conai = is_bool($costo_conai_prodotto) ? '' : (string)$costo_conai_prodotto['fascia_conai'];
+            $totale_costo_conai += $costo_conai;
             $order_detail['tot_of_conai'] = $costo_conai;
             $costo_cliche_prodotto = $this->getCostoCliche($order_detail);
             $has_cliche = is_array($costo_cliche_prodotto) && count($costo_cliche_prodotto) > 0;
-            $costo_cliche = $has_cliche?(float)$costo_cliche_prodotto['costo_cliche']:0;
+            $costo_cliche = $has_cliche ? (float)$costo_cliche_prodotto['costo_cliche'] : 0;
             $totale_costo_cliche += $costo_cliche;
             $order_detail['tot_of_cliche'] = $costo_cliche;
             // Set tax_code
@@ -63,13 +63,12 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
             foreach ($taxes as $tax) {
                 $obj = new Tax($tax['id_tax']);
                 $translator = Context::getContext()
-                    ->getTranslator()
-                ;
+                    ->getTranslator();
                 $tax_temp[] = $translator->trans(
                     '%taxrate%%space%%',
                     [
                         '%taxrate%' => ($obj->rate + 0),
-                        '%space%'   => '&nbsp;',
+                        '%space%' => '&nbsp;',
                     ],
                     'Shop.Pdf'
                 );
@@ -82,9 +81,9 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
                 $order_detail['product_id'],
                 $order_detail['unit_price_tax_excl']);
             $order_detail['fascia_conai'] = $fascia_conai;
-            if(true === $has_cliche) {
+            if (true === $has_cliche) {
                 $order_detail['is_ristampa'] = $order_detail['tot_of_cliche'] == 0 ? 'ristampa' : '';
-            }else{
+            } else {
                 $order_detail['is_ristampa'] = '';
             }
         }
@@ -94,20 +93,20 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
 //        if (Configuration::get('PS_PDF_IMG_INVOICE')) {
         foreach ($order_details as &$order_detail) {
             if ($order_detail['image'] != null) {
-                $name = 'product_mini_'.(int)$order_detail['product_id'].
-                    (isset($order_detail['product_attribute_id']) ? '_'.
-                        (int)$order_detail['product_attribute_id'] : '').'.jpg';
-                $path = _PS_PROD_IMG_DIR_.$order_detail['image']->getExistingImgPath().'.jpg';
+                $name = 'product_mini_' . (int)$order_detail['product_id'] .
+                    (isset($order_detail['product_attribute_id']) ? '_' .
+                        (int)$order_detail['product_attribute_id'] : '') . '.jpg';
+                $path = _PS_PROD_IMG_DIR_ . $order_detail['image']->getExistingImgPath() . '.jpg';
 
                 $order_detail['image_tag'] = preg_replace(
-                    '/\.*'.preg_quote(__PS_BASE_URI__, '/').'/',
-                    _PS_ROOT_DIR_.DIRECTORY_SEPARATOR,
+                    '/\.*' . preg_quote(__PS_BASE_URI__, '/') . '/',
+                    _PS_ROOT_DIR_ . DIRECTORY_SEPARATOR,
                     ImageManager::thumbnail($path, $name, 45, 'jpg', false),
                     1
                 );
 
-                if (file_exists(_PS_TMP_IMG_DIR_.$name)) {
-                    $order_detail['image_size'] = getimagesize(_PS_TMP_IMG_DIR_.$name);
+                if (file_exists(_PS_TMP_IMG_DIR_ . $name)) {
+                    $order_detail['image_size'] = getimagesize(_PS_TMP_IMG_DIR_ . $name);
                 } else {
                     $order_detail['image_size'] = false;
                 }
@@ -162,24 +161,24 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
         $total_taxes = $this->order_invoice->total_paid_tax_incl - $this->order_invoice->total_paid_tax_excl;
         $footer = [
             'products_before_discounts_tax_excl' => $this->order_invoice->total_products,
-            'product_discounts_tax_excl'         => $product_discounts_tax_excl,
-            'products_after_discounts_tax_excl'  => $products_after_discounts_tax_excl,
+            'product_discounts_tax_excl' => $product_discounts_tax_excl,
+            'products_after_discounts_tax_excl' => $products_after_discounts_tax_excl,
             'products_before_discounts_tax_incl' => $this->order_invoice->total_products_wt,
-            'product_discounts_tax_incl'         => $product_discounts_tax_incl,
-            'products_after_discounts_tax_incl'  => $products_after_discounts_tax_incl,
-            'product_taxes'                      => $product_taxes,
-            'shipping_tax_excl'                  => $shipping_tax_excl,
-            'shipping_taxes'                     => $shipping_taxes,
-            'shipping_tax_incl'                  => $shipping_tax_incl,
-            'wrapping_tax_excl'                  => $this->order_invoice->total_wrapping_tax_excl,
-            'wrapping_taxes'                     => $wrapping_taxes,
-            'wrapping_tax_incl'                  => $this->order_invoice->total_wrapping_tax_incl,
-            'ecotax_taxes'                       => $total_taxes - $product_taxes - $wrapping_taxes - $shipping_taxes,
-            'total_taxes'                        => $total_taxes,
-            'total_paid_tax_excl'                => $this->order_invoice->total_paid_tax_excl,
-            'total_paid_tax_incl'                => $this->order_invoice->total_paid_tax_incl,
-            'totale_costo_conai'                 => $totale_costo_conai,
-            'totale_costo_cliche'                => $totale_costo_cliche,
+            'product_discounts_tax_incl' => $product_discounts_tax_incl,
+            'products_after_discounts_tax_incl' => $products_after_discounts_tax_incl,
+            'product_taxes' => $product_taxes,
+            'shipping_tax_excl' => $shipping_tax_excl,
+            'shipping_taxes' => $shipping_taxes,
+            'shipping_tax_incl' => $shipping_tax_incl,
+            'wrapping_tax_excl' => $this->order_invoice->total_wrapping_tax_excl,
+            'wrapping_taxes' => $wrapping_taxes,
+            'wrapping_tax_incl' => $this->order_invoice->total_wrapping_tax_incl,
+            'ecotax_taxes' => $total_taxes - $product_taxes - $wrapping_taxes - $shipping_taxes,
+            'total_taxes' => $total_taxes,
+            'total_paid_tax_excl' => $this->order_invoice->total_paid_tax_excl,
+            'total_paid_tax_incl' => $this->order_invoice->total_paid_tax_incl,
+            'totale_costo_conai' => $totale_costo_conai,
+            'totale_costo_cliche' => $totale_costo_cliche,
 
         ];
 
@@ -231,25 +230,25 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
         }
         $note_ordine = $this->getNoteOrdine($this->order->id);
         $data = [
-            'order'                      => $this->order,
-            'order_invoice'              => $this->order_invoice,
-            'order_details'              => $order_details,
-            'note'                       => $note_ordine,
-            'carrier'                    => $carrier,
-            'cart_rules'                 => $cart_rules,
-            'delivery_address'           => $formatted_delivery_address,
-            'invoice_address'            => $formatted_invoice_address,
-            'addresses'                  => ['invoice' => $invoice_address, 'delivery' => $delivery_address],
-            'tax_excluded_display'       => $tax_excluded_display,
-            'display_product_images'     => $display_product_images,
-            'layout'                     => $layout,
-            'tax_tab'                    => $this->getTaxTabContent(),
-            'customer'                   => $customer,
-            'footer'                     => $footer,
+            'order' => $this->order,
+            'order_invoice' => $this->order_invoice,
+            'order_details' => $order_details,
+            'note' => $note_ordine,
+            'carrier' => $carrier,
+            'cart_rules' => $cart_rules,
+            'delivery_address' => $formatted_delivery_address,
+            'invoice_address' => $formatted_invoice_address,
+            'addresses' => ['invoice' => $invoice_address, 'delivery' => $delivery_address],
+            'tax_excluded_display' => $tax_excluded_display,
+            'display_product_images' => $display_product_images,
+            'layout' => $layout,
+            'tax_tab' => $this->getTaxTabContent(),
+            'customer' => $customer,
+            'footer' => $footer,
             'ps_price_compute_precision' => Context::getContext()
                 ->getComputingPrecision(),
-            'round_type'                 => $round_type,
-            'legal_free_text'            => $legal_free_text,
+            'round_type' => $round_type,
+            'legal_free_text' => $legal_free_text,
         ];
 
         if (Tools::getValue('debug')) {
@@ -259,30 +258,65 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
         $this->smarty->assign($data);
 
         $tpls = [
-            'style_tab'     => $this->smarty->fetch($this->getTemplate('invoice.style-tab')),
+            'style_tab' => $this->smarty->fetch($this->getTemplate('invoice.style-tab')),
             'addresses_tab' => $this->smarty->fetch($this->getTemplate('invoice.addresses-tab')),
-            'summary_tab'   => $this->smarty->fetch($this->getTemplate('invoice.summary-tab')),
-            'product_tab'   => $this->smarty->fetch($this->getTemplate('invoice.product-tab')),
-            'tax_tab'       => $this->getTaxTabContent(),
-            'payment_tab'   => $this->smarty->fetch($this->getTemplate('invoice.payment-tab')),
-            'note_tab'      => $this->smarty->fetch($this->getTemplate('invoice.note-tab')),
-            'total_tab'     => $this->smarty->fetch($this->getTemplate('invoice.total-tab')),
-            'shipping_tab'  => $this->smarty->fetch($this->getTemplate('invoice.shipping-tab')),
+            'summary_tab' => $this->smarty->fetch($this->getTemplate('invoice.summary-tab')),
+            'product_tab' => $this->smarty->fetch($this->getTemplate('invoice.product-tab')),
+            'tax_tab' => $this->getTaxTabContent(),
+            'payment_tab' => $this->smarty->fetch($this->getTemplate('invoice.payment-tab')),
+            'note_tab' => $this->smarty->fetch($this->getTemplate('invoice.note-tab')),
+            'total_tab' => $this->smarty->fetch($this->getTemplate('invoice.total-tab')),
+            'shipping_tab' => $this->smarty->fetch($this->getTemplate('invoice.shipping-tab')),
         ];
         $this->smarty->assign($tpls);
 
         return $this->smarty->fetch($this->getTemplateByCountry($country->iso_code));
     }
 
+    private function getCostoConai(&$order_detail)
+    {
+        //inserire costo cliche e costo conai
+        $id_order = $order_detail['id_order'];
+        $id_order_detail = $order_detail['id_order_detail'];
+        $id_product = $order_detail['product_id'];
+        $id_attribute = $order_detail['product_attribute_id'];
+        $costo_conai_prodotto = Db::getInstance()
+            ->getRow(
+                (new DbQuery())->from('order_detail_conai')
+                    ->where('id_order = ' . $id_order . ' and id_product = ' . $id_product . ' and id_product_attribute = '
+                        . $id_attribute . ' and id_order_detail = ' . $id_order_detail
+                    )
+            );
+
+        return $costo_conai_prodotto;
+    }
+
+    private function getCostoCliche($order_detail)
+    {
+        $id_product = $order_detail['product_id'];
+        $id_attribute = $order_detail['product_attribute_id'];
+        $id_order = $order_detail['id_order'];
+        $id_order_detail = $order_detail['id_order_detail'];
+
+        return Db::getInstance()
+            ->getRow(
+                (new \DbQuery())->from('order_detail_cliche')
+                    ->where(
+                        'id_product = ' . $id_product . ' and id_order = ' . $id_order . ' and id_product_attribute = '
+                        . $id_attribute
+                    )
+            );
+    }
 
     private function getNoteOrdine(int $id_order)
     {
-        $note_ordine = DB::getInstance()->getRow('select * from '._DB_PREFIX_.'order_note where id_order = '.$id_order);
-        if($note_ordine){
-            return $note_ordine['note']?:'--';
+        $note_ordine = DB::getInstance()->getRow('select * from ' . _DB_PREFIX_ . 'order_note where id_order = ' . $id_order);
+        if ($note_ordine) {
+            return $note_ordine['note'] ?: '--';
         }
         return '--';
-}
+    }
+
     public function getHeader()
     {
         $this->smarty->assign([
@@ -293,38 +327,6 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
         return parent::getHeader();
     }
 
-    private function getCostoCliche( $order_detail)
-    {
-        $id_product = $order_detail['product_id'];
-        $id_attribute = $order_detail['product_attribute_id'];
-        $id_order = $order_detail['id_order'];
-
-        return Db::getInstance()
-            ->getRow(
-                (new \DbQuery())->from('order_detail_cliche')
-                    ->where(
-                        'id_product = '.$id_product.' and id_order = '.$id_order.' and id_attribute = '.$id_attribute
-                    )
-            )
-        ;
-    }
-
-    private function getCostoConai(&$order_detail)
-    {
-        //inserire costo cliche e costo conai
-        $id_order = $order_detail['id_order'];
-        $id_product = $order_detail['product_id'];
-        $id_attribute = $order_detail['product_attribute_id'];
-        $costo_conai_prodotto = Db::getInstance()
-            ->getRow(
-                (new DbQuery())->from('order_detail_conai')
-                    ->where('id_order = '.$id_order.' and id_product = '.$id_product.' and id_attribute = '.$id_attribute)
-            )
-        ;
-
-        return $costo_conai_prodotto;
-    }
-
     private function getCustomerErpCode()
     {
         $id_customer = $this->order->getCustomer()->id;
@@ -332,10 +334,9 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
 
         return \Db::getInstance()
             ->getValue(
-                'select erpcode from '._DB_PREFIX_.'bwcustomererp where id_customer = '.$id_customer.' and id_shop = '.
+                'select erpcode from ' . _DB_PREFIX_ . 'bwcustomererp where id_customer = ' . $id_customer . ' and id_shop = ' .
                 $id_shop
-            )
-        ;
+            );
     }
 
     private function getPecSdi()
@@ -346,13 +347,11 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
         $sql = new DbQuery();
         $sql->from('bwsigninextend')
             ->select('codice_sdi, pec')
-            ->where('id_customer = '.$id_customer)
-            ->where('id_address = '.$id_address_invoice)
-        ;
+            ->where('id_customer = ' . $id_customer)
+            ->where('id_address = ' . $id_address_invoice);
 
         return \Db::getInstance()
-            ->getRow($sql)
-        ;
+            ->getRow($sql);
     }
 
 }

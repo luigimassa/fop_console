@@ -14,7 +14,6 @@ class oleafoquantitypricesOverride extends oleafoquantityprices
         }
         $product = $params['product'];
 
-
         /* Computation of best prices in categories page or inproduct page */
         /* *************************************************************** */
         static $_bestprices = array();
