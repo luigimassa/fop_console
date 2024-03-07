@@ -55,7 +55,6 @@
             <div class="thumbnail product-thumbnail relative flex-container">
                 {block name='product_thumbnail'}
                     {if $product.cover}
-                        {hook h="displayProductPageCss" product=$product}
                         <a href="{$product.url}"
                            class="relative oh{if $pkconf.pm_hover_image}{foreach from=$product.images item=image}{if (($image.cover != 1) && ($product.cover.id_image != $image.id_image))} subimage-true{break}{/if}{/foreach}{/if}">
                             {if $product.cover}
