@@ -51,7 +51,6 @@
             data-id-product="{$product.id_product}" data-id-product-attribute="{$product.id_product_attribute}">
 
         <div class="thumbnail-container relative">
-
             <div class="thumbnail product-thumbnail relative flex-container">
                 {block name='product_thumbnail'}
                     {if $product.cover}
@@ -190,11 +189,18 @@
 
                                     {hook h='displayProductPriceBlock' product=$product type="before_price"}
                                     {* @bwlab -----> *}
+                                    {* richiesta chat del 07.03.24 disattivato Ticket #588*}
                                     {* modifica per mostrare il prezzo più basso - vedi modulo oleafquantityprices - override del modulo e template *}
                                     {* <span class="price" content="{$product.price_amount}">{$product.price}</span> *}
                                     {* {hook h='displayProductPriceBlock' product=$product type='unit_price'} *}
-                                    {hook h='displayProductPriceBlock' product=$product type='unit_price' product=$product}
+                                    {* {hook h='displayProductPriceBlock' product=$product type='unit_price' product=$product}*}
+
+                                    {* Ticket #588 -mostrare quantità minima *}
+                                    <span class="packaging-row-minimal-quantity">&nbsp;{l s='Minimal quantity' d='Shop.Theme.Packaging'}&nbsp; <span class="packaging-minimal-quantity">{$product.minimal_quantity}</span></span>
+                                    {widget name='bwdisplaydata' hook="caratteristica" caratteristiche_prodotto=$product.features id_feature=7}
+                                    {* richiesta chat del 07.03.24 disattivato*}
                                     {* bwlab <-------- *}
+
                                     {hook h='displayProductPriceBlock' product=$product type='weight'}
 
                                 </div>
