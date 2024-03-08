@@ -171,21 +171,23 @@
 
                             {if $product.show_price}
                                 <div class="product-price-and-shipping">
-                                    {if $product.has_discount}
+                                    {* @bwlab --> Ticket #588 -mostrare quantità minima *}
+                                    {* richiesta ggiuntiva per nascondere                                    *}
+{*                                    {if $product.has_discount}*}
 
-                                        {hook h='displayProductPriceBlock' product=$product type="old_price"}
-                                        <span class="regular-price">{$product.regular_price}</span>
-                                        {if $product.discount_type === 'percentage'}
-                                            {if (isset($product.discount_percentage))}
-                                                <span class="discount-percentage discount-product">{$product.discount_percentage}</span>
-                                            {/if}
-                                        {elseif $product.discount_type === 'amount'}
-                                            {if (isset($product.discount_amount_to_display))}
-                                                <span class="discount-amount discount-product">{$product.discount_amount_to_display}</span>
-                                            {/if}
-                                        {/if}
+{*                                        {hook h='displayProductPriceBlock' product=$product type="old_price"}*}
+{*                                        <span class="regular-price">{$product.regular_price}</span>*}
+{*                                        {if $product.discount_type === 'percentage'}*}
+{*                                            {if (isset($product.discount_percentage))}*}
+{*                                                <span class="discount-percentage discount-product">{$product.discount_percentage}</span>*}
+{*                                            {/if}*}
+{*                                        {elseif $product.discount_type === 'amount'}*}
+{*                                            {if (isset($product.discount_amount_to_display))}*}
+{*                                                <span class="discount-amount discount-product">{$product.discount_amount_to_display}</span>*}
+{*                                            {/if}*}
+{*                                        {/if}*}
 
-                                    {/if}
+{*                                    {/if}*}
                                     {* @bwlab --> Ticket #588 -mostrare quantità minima *}
                                     {*  {hook h='displayProductPriceBlock' product=$product type="before_price"}*}
                                     {* @bwlab <----- *}
