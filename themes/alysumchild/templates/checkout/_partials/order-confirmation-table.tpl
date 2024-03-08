@@ -50,9 +50,9 @@
         {/block}
 
         <div class="order-confirmation-table">
-
             {block name='order_confirmation_table'}
                 {foreach from=$products item=product}
+
                     <div class="order-line row">
                         <div class="col-sm-2 col-xs-3">
                             <span class="image">
@@ -66,6 +66,10 @@
                         <div class="col-sm-4 col-xs-9 details">
                             {if $add_product_link}<a href="{$product.url}" target="_blank">{/if}
                                 <span>{$product.name}</span>
+                                {* @bwlab Ticket #589 - aggiunta tolleranza di produzione *}
+                                <br>
+                                {widget name="bwdisplaydata" hook="fetchCaratteristica" id_feature="2000" id_product=$product["id_product"]}
+                                {* <---- @bwlab *}
                                 {if $add_product_link}</a>{/if}
                             {if $product.customizations|count}
                                 {foreach from=$product.customizations item="customization"}
@@ -73,6 +77,7 @@
                                         <a href="#" data-toggle="modal"
                                             data-target="#product-customizations-modal-{$customization.id_customization}">{l s='Product customization' d='Shop.Theme.Catalog'}</a>
                                     </div>
+
                                     <div class="modal fade customization-modal"
                                         id="product-customizations-modal-{$customization.id_customization}" tabindex="-1" role="dialog"
                                         aria-hidden="true">
