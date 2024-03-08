@@ -52,14 +52,15 @@
         <div class="order-confirmation-table">
             {block name='order_confirmation_table'}
                 {foreach from=$products item=product}
-
                     <div class="order-line row">
                         <div class="col-sm-2 col-xs-3">
                             <span class="image">
                                 {if $product.cover}
-                                    <img src="{$product.cover.medium.url}" />
-                                {else}
-                                    <img src="{$urls.no_picture_image.bySize.medium_default.url}" />
+                                    <img src="{$product.cover.medium.url}"/>
+
+{else}
+
+                                    <img src="{$urls.no_picture_image.bySize.medium_default.url}"/>
                                 {/if}
                             </span>
                         </div>
@@ -75,16 +76,17 @@
                                 {foreach from=$product.customizations item="customization"}
                                     <div class="customizations">
                                         <a href="#" data-toggle="modal"
-                                            data-target="#product-customizations-modal-{$customization.id_customization}">{l s='Product customization' d='Shop.Theme.Catalog'}</a>
+                                           data-target="#product-customizations-modal-{$customization.id_customization}">{l s='Product customization' d='Shop.Theme.Catalog'}</a>
                                     </div>
-
                                     <div class="modal fade customization-modal"
-                                        id="product-customizations-modal-{$customization.id_customization}" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
+                                         id="product-customizations-modal-{$customization.id_customization}"
+                                         tabindex="-1" role="dialog"
+                                         aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                     <h4 class="modal-title">{l s='Product customization' d='Shop.Theme.Catalog'}</h4>
@@ -125,9 +127,7 @@
                         </div>
                     </div>
                 {/foreach}
-
                 <hr>
-
                 <table>
                     {foreach $subtotals as $subtotal}
                         {if $subtotal !== null && $subtotal.type !== 'tax' && $subtotal.label !== null}
@@ -151,7 +151,7 @@
                     {else}
                         <tr class="total-value font-weight-bold">
                             <td><span
-                                    class="text-uppercase">{$totals.total.label}&nbsp;{if $configuration.taxes_enabled}{$labels.tax_short}{/if}</span>
+                                        class="text-uppercase">{$totals.total.label}&nbsp;{if $configuration.taxes_enabled}{$labels.tax_short}{/if}</span>
                             </td>
                             <td>{$totals.total.value}</td>
                         </tr>
@@ -159,8 +159,8 @@
                     {if $subtotals.tax !== null && $subtotals.tax.label !== null}
                         <tr class="sub taxes">
                             <td colspan="2"><span
-                                    class="label">{l s='%label%:' sprintf=['%label%' => $subtotals.tax.label] d='Shop.Theme.Global'}</span>&nbsp;<span
-                                    class="value">{$subtotals.tax.value}</span></td>
+                                        class="label">{l s='%label%:' sprintf=['%label%' => $subtotals.tax.label] d='Shop.Theme.Global'}</span>&nbsp;<span
+                                        class="value">{$subtotals.tax.value}</span></td>
                         </tr>
                     {/if}
                 </table>

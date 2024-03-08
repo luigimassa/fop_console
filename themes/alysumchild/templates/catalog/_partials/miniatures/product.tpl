@@ -186,8 +186,9 @@
                                         {/if}
 
                                     {/if}
-
-                                    {hook h='displayProductPriceBlock' product=$product type="before_price"}
+                                    {* @bwlab --> Ticket #588 -mostrare quantità minima *}
+                                    {*  {hook h='displayProductPriceBlock' product=$product type="before_price"}*}
+                                    {* @bwlab <----- *}
                                     {* @bwlab -----> *}
                                     {* richiesta chat del 07.03.24 disattivato Ticket #588*}
                                     {* modifica per mostrare il prezzo più basso - vedi modulo oleafquantityprices - override del modulo e template *}
@@ -196,9 +197,18 @@
                                     {* {hook h='displayProductPriceBlock' product=$product type='unit_price' product=$product}*}
 
                                     {* Ticket #588 -mostrare quantità minima *}
-                                    <span class="packaging-row-minimal-quantity">&nbsp;{l s='Minimal quantity' d='Shop.Theme.Packaging'}&nbsp; <span class="packaging-minimal-quantity">{$product.minimal_quantity}</span></span>
-                                    <br/>
-                                    {widget name='bwdisplaydata' hook="caratteristica" caratteristiche_prodotto=$product.features id_feature=7}
+                                    {*                                    <span class="packaging-row-minimal-quantity">&nbsp;{l s='Minimal quantity' d='Shop.Theme.Packaging'}&nbsp; <span class="packaging-minimal-quantity">{$product.minimal_quantity}</span></span>*}
+                                    {l s="Quantità minima" d="Shop.Theme.Packaging"}
+                                    {widget name='bwdisplaydata' hook="prodottoQtaMinima"
+                                    caratteristiche_prodotto=$product.features
+                                    id_feature=7
+                                    quantita_minima=$product.minimal_quantity
+                                    }
+                                    &nbsp;
+                                    {assign var=unita_di_misura value=Bwdisplaydata::getCaratteristica($product.id, 37)}
+                                    {if null !== $unita_di_misura}
+                                        {$unita_di_misura.value}
+                                    {/if}
                                     {* richiesta chat del 07.03.24 disattivato*}
                                     {* bwlab <-------- *}
 
