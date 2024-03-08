@@ -197,6 +197,7 @@
 
                                     {* Ticket #588 -mostrare quantità minima *}
                                     <span class="packaging-row-minimal-quantity">&nbsp;{l s='Minimal quantity' d='Shop.Theme.Packaging'}&nbsp; <span class="packaging-minimal-quantity">{$product.minimal_quantity}</span></span>
+                                    <br/>
                                     {widget name='bwdisplaydata' hook="caratteristica" caratteristiche_prodotto=$product.features id_feature=7}
                                     {* richiesta chat del 07.03.24 disattivato*}
                                     {* bwlab <-------- *}
