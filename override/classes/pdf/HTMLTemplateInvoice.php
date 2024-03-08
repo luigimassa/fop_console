@@ -77,6 +77,7 @@ class HTMLTemplateInvoice extends HTMLTemplateInvoiceCore
             $order_details[$id]['order_detail_tax'] = $taxes;
             $order_details[$id]['order_detail_tax_label'] = implode(', ', $tax_temp);
             $order_detail['pezzi_per_cartone'] = \PackagingHelper::getPezziPerCartone($order_detail['product_id']);
+            $order_detail['tolleranza'] = \PackagingHelper::getTolleranza($order_detail['product_id']);
             $order_detail['costo_unitario'] = \PackagingHelper::getCostoUnitario(
                 $order_detail['product_id'],
                 $order_detail['unit_price_tax_excl']);

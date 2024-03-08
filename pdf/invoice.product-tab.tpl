@@ -71,8 +71,11 @@
                 {$order_detail.product_name}
                 <br/>
                 <br/>
-                <span>{l s='Codice' d='Shop.Pdf' pdf='true'}</span>: {$order_detail.product_reference} <br/>
-                <span>{l s='Pezzi per cartone' d='Shop.Pdf' pdf='true'}</span>: {$order_detail.pezzi_per_cartone}
+                {l s='Codice' d='Shop.Pdf' pdf='true'}: {$order_detail.product_reference} <br/>
+                {l s='Pezzi per cartone' d='Shop.Pdf' pdf='true'}: {$order_detail.pezzi_per_cartone}<br/>
+                {if $order_detail['tolleranza']}
+                {l s='Tolleranza di produzione' d='Shop.Pdf' pdf='true'}: {$order_detail.pezzi_per_cartone}
+                {/if}
                 <br/>
             </td>
 
