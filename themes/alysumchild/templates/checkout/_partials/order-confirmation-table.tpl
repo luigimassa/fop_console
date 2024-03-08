@@ -68,7 +68,7 @@
                                 <span>{$product.name}</span>
                                 {* @bwlab Ticket #589 - aggiunta tolleranza di produzione *}
                                 <br>
-                                {widget name="bwdisplaydata" hook="fetchCaratteristica" id_feature="2000" id_product=$product["id_product"]}
+                                {widget name="bwdisplaydata" hook="fetchCaratteristica" id_feature="33" id_product=$product["id_product"]}
                                 {* <---- @bwlab *}
                                 {if $add_product_link}</a>{/if}
                             {if $product.customizations|count}
