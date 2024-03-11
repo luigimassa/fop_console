@@ -201,10 +201,12 @@
                                     {* Ticket #588 -mostrare quantità minima *}
                                     {*                                    <span class="packaging-row-minimal-quantity">&nbsp;{l s='Minimal quantity' d='Shop.Theme.Packaging'}&nbsp; <span class="packaging-minimal-quantity">{$product.minimal_quantity}</span></span>*}
                                     {l s="Quantità minima" d="Shop.Theme.Packaging"}
+
+
                                     {widget name='bwdisplaydata' hook="prodottoQtaMinima"
                                     caratteristiche_prodotto=$product.features
                                     id_feature=7
-                                    quantita_minima=$product.minimal_quantity
+                                    id_product=$product.id_product
                                     }
                                     &nbsp;
                                     {assign var=unita_di_misura value=Bwdisplaydata::getCaratteristica($product.id, 37)}
