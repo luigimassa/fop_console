@@ -7,6 +7,7 @@
                 href="javascript:void(0);"
                 class="btn btn-primary do-send-message"
                 data-id="{$id_file}"
+                data-id-order="{$id_order}"
                 onclick="{$callback}(this)"
         >
              {l s='invia' d='Modules.Customercliche.Shop'}

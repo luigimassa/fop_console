@@ -2,8 +2,11 @@
         style="display: flex; flex-direction: row; align-content: center"
         class="p-a-1 load-messages">
     {include
-    file="module:customercliche/views/templates/front/_partial/message_textarea.tpl"
-    id_file=$file_data_view->id_file   callback="sendMessage"}
+        file="module:customercliche/views/templates/front/_partial/message_textarea.tpl"
+            id_file=$file_data_view->id_file
+            id_order=$file_data_view->id_order
+        callback="sendMessage"
+    }
     <div class="m-a-1">
 
         <div
