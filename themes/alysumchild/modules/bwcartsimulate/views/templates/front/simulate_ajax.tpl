@@ -18,7 +18,7 @@
 											{$cart.subtotals.products.value}<br/>
            {widget name="bwdisplaydata" hook="costoUnitario" product=$cart.products[0]}
 								<br>
-				{widget name='bwdisplaydata' hook="fetchCaratteristica" id_product=$cart.products[0].id_product id_feature=33}
+				({widget name='bwdisplaydata' hook="fetchCaratteristica" id_product=$cart.products[0].id_product id_feature=33})
 
                         </div>
                     </li>

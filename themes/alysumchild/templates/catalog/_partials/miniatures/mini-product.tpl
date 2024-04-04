@@ -114,7 +114,7 @@
                         {* #506 <---  *}
                         {*--> ticket #589              *}
                         <span class="caratteristica">
-              {widget name='bwdisplaydata' hook="fetchCaratteristica" id_product=$product.id_product id_feature=33}
+              ({widget name='bwdisplaydata' hook="fetchCaratteristica" id_product=$product.id_product id_feature=33})
                   </span>
                         {* #589 <---  *}
                     </div>
