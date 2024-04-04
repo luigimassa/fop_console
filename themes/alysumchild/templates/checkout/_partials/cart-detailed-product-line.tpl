@@ -23,146 +23,153 @@
  * International Registered Trademark & Property of PrestaShop SA
  *}
 <div class="product-line-grid flex-container">
-	<!--  product left content: image-->
-	<div class="product-line-grid-left">
+    <!--  product left content: image-->
+    <div class="product-line-grid-left">
 		<span class="product-image media-middle">
 			<img src="{$product.cover.bySize.home_default.url}" alt="{$product.name|escape:'quotes'}"
-				width="{$product.cover.bySize.home_default.width}" height="{$product.cover.bySize.home_default.height}"
-				loading="lazy">
+                 width="{$product.cover.bySize.home_default.width}" height="{$product.cover.bySize.home_default.height}"
+                 loading="lazy">
 		</span>
-	</div>
+    </div>
 
-	<!--  product left body: description -->
-	<div class="product-line-grid-body flex-grow1">
-		<div class="product-line-info">
-			<a class="label" href="{$product.url}"
-				data-id_customization="{$product.id_customization|intval}">{$product.name}</a>
-		</div>
-		<div class="product-line-info product-price h5 flex-container {if $product.has_discount}has-discount{/if}">
-			{if $product.has_discount}
-				<div class="product-discount">
-					<span class="regular-price">{$product.regular_price}</span>
-					{if $product.discount_type === 'percentage'}
-						<span class="discount discount-percentage">
+    <!--  product left body: description -->
+    <div class="product-line-grid-body flex-grow1">
+        <div class="product-line-info">
+            <a class="label" href="{$product.url}"
+               data-id_customization="{$product.id_customization|intval}">{$product.name}</a>
+        </div>
+        <div class="product-line-info product-price h5 flex-container {if $product.has_discount}has-discount{/if}">
+            {if $product.has_discount}
+                <div class="product-discount">
+                    <span class="regular-price">{$product.regular_price}</span>
+                    {if $product.discount_type === 'percentage'}
+                        <span class="discount discount-percentage">
 							-{$product.discount_percentage_absolute}
 						</span>
-					{else}
-						<span class="discount discount-amount">
+                    {else}
+                        <span class="discount discount-amount">
 							-{$product.discount_to_display}
 						</span>
-					{/if}
-				</div>
-			{/if}
-			<div class="current-price">
+                    {/if}
+                </div>
+            {/if}
+            <div class="current-price">
 				<span class="price">
 					{if $product.cart_quantity > 1}
-						<span>({$product.cart_quantity} &#215; {$product.price})</span>
-					{/if}
-					{$product.total}</span>
-				{*        {if $product.unit_price_full}*}
-					{*          <div class="unit-price-cart">{$product.unit_price_full}</div>*}
-				{*        {/if}*}
+                        <span>({$product.cart_quantity} &#215; {$product.price})</span>
+                    {/if}
+                    {$product.total}</span>
+                {*        {if $product.unit_price_full}*}
+                {*          <div class="unit-price-cart">{$product.unit_price_full}</div>*}
+                {*        {/if}*}
+                <br>
+                  <span class="caratteristica">
+                ({widget name='bwdisplaydata' hook="costoUnitarioCart" product=$product})
+                      </span>
+                <br><span class="caratteristica">
+				({widget name='bwdisplaydata' hook="fetchCaratteristica" id_product=$product.id_product id_feature=33})
+                </span>
+            </div>
+        </div>
 
-				{widget name='bwdisplaydata' hook="costoUnitarioCart" product=$product}
-			</div>
-		</div>
+        {if count($product.attributes) > 0}
+            <div>
+                <label for="element-toggle-{$product.id}">{l s='Details' d='Shop.Theme.Catalog'}</label>
+                <input id="element-toggle-{$product.id}" type='checkbox'>
+                <div id="toggled-element-{$product.id}">
+                    {foreach from=$product.attributes key="attribute" item="value"}
+                        <div class="product-line-info prod-features">
+                            <span class="label">{$attribute}:</span>
+                            <span class="value">{$value}</span>
+                        </div>
+                    {/foreach}
 
-		{if count($product.attributes) > 0}
-			<div>
-				<label for="element-toggle-{$product.id}">{l s='Details' d='Shop.Theme.Catalog'}</label>
-				<input id="element-toggle-{$product.id}" type='checkbox'>
-				<div id="toggled-element-{$product.id}">
-					{foreach from=$product.attributes key="attribute" item="value"}
-						<div class="product-line-info prod-features">
-							<span class="label">{$attribute}:</span>
-							<span class="value">{$value}</span>
-						</div>
-					{/foreach}
+                    <style>
+                        #element-toggle-{$product.id} {
+                            height: 0;
+                            overflow: hidden;
+                        }
 
-					<style>
-						#element-toggle-{$product.id} {
-						height: 0;
-						overflow: hidden;
-						}
+                        #element-toggle-{$product.id}:not(:checked) ~ #toggled-element-{$product.id} {
+                            height: 0;
+                            overflow: hidden;
+                        }
+                    </style>
+                </div>
+            </div>
+        {/if}
+        {if $product.customizations|count}
+            <br>
+            {block name='cart_detailed_product_line_customization'}
+                {foreach from=$product.customizations item="customization"}
+                    <div id="product-customizations-modal-{$customization.id_customization}"
+                         class="product-customizations-modal">
+                        <h4 class="modal-title">{l s='Product customization' d='Shop.Theme.Catalog'}</h4>
+                        {foreach from=$customization.fields item="field"}
+                            <div class="flex-container">
+                                <div class="label">
+                                    <strong>{$field.label}:</strong>
+                                </div>
+                                <div class="value">
+                                    {if $field.type == 'text'}
+                                        {if (int)$field.id_module}
+                                            {$field.text nofilter}
+                                        {else}
+                                            {$field.text}
+                                        {/if}
+                                    {elseif $field.type == 'image'}
+                                        <img src="{$field.image.small.url}" class="pkimg" style="max-width: 100px"
+                                             loading="lazy">
+                                    {/if}
+                                </div>
+                            </div>
+                        {/foreach}
+                    </div>
+                {/foreach}
+            {/block}
+        {/if}
+        {hook h='displayCartProductAction' id_product=$product.id id_attribute=$product.id_product_attribute
+        id_customer=$customer.id }
+    </div>
 
-						#element-toggle-{$product.id}:not(:checked) ~ #toggled-element-{$product.id} {
-						height: 0;
-						overflow: hidden;
-						}
-					</style>
-				</div>
-			</div>
-		{/if}
-		{if $product.customizations|count}
-			<br>
-			{block name='cart_detailed_product_line_customization'}
-				{foreach from=$product.customizations item="customization"}
-					<div id="product-customizations-modal-{$customization.id_customization}" class="product-customizations-modal">
-						<h4 class="modal-title">{l s='Product customization' d='Shop.Theme.Catalog'}</h4>
-						{foreach from=$customization.fields item="field"}
-							<div class="flex-container">
-								<div class="label">
-									<strong>{$field.label}:</strong>
-								</div>
-								<div class="value">
-									{if $field.type == 'text'}
-										{if (int)$field.id_module}
-											{$field.text nofilter}
-										{else}
-											{$field.text}
-										{/if}
-									{elseif $field.type == 'image'}
-										<img src="{$field.image.small.url}" class="pkimg" style="max-width: 100px" loading="lazy">
-									{/if}
-								</div>
-							</div>
-						{/foreach}
-					</div>
-				{/foreach}
-			{/block}
-		{/if}
-		{hook h='displayCartProductAction' id_product=$product.id id_attribute=$product.id_product_attribute
-      id_customer=$customer.id }
-	</div>
-
-	<!--  product left body: description -->
-	<div class="product-line-grid-right product-line-actions flex-container">
-		<div class="qty">
-			{if !empty($product.is_gift)}
-				<span class="gift-quantity">{$product.quantity}</span>
-			{else}
-				<input class="js-cart-line-product-quantity" data-down-url="{$product.down_quantity_url}"
-					data-up-url="{$product.up_quantity_url}" data-update-url="{$product.update_quantity_url}"
-					data-product-id="{$product.id_product}" type="text" value="{$product.quantity}"
-					name="product-quantity-spin" min="{$product.minimal_quantity}" />
-			{/if}
-		</div>
-		<div class="price">
+    <!--  product left body: description -->
+    <div class="product-line-grid-right product-line-actions flex-container">
+        <div class="qty">
+            {if !empty($product.is_gift)}
+                <span class="gift-quantity">{$product.quantity}</span>
+            {else}
+                <input class="js-cart-line-product-quantity" data-down-url="{$product.down_quantity_url}"
+                       data-up-url="{$product.up_quantity_url}" data-update-url="{$product.update_quantity_url}"
+                       data-product-id="{$product.id_product}" type="text" value="{$product.quantity}"
+                       name="product-quantity-spin" min="{$product.minimal_quantity}"/>
+            {/if}
+        </div>
+        <div class="price">
 			<span class="product-price">
 				<strong>
 					{if !empty($product.is_gift)}
-						<span class="gift">{l s='Gift' d='Shop.Theme.Checkout'}</span>
-					{else}
-						{$product.total}
-					{/if}
+                        <span class="gift">{l s='Gift' d='Shop.Theme.Checkout'}</span>
+                    {else}
+                        {$product.total}
+                    {/if}
 				</strong>
 			</span>
-		</div>
-		<div class="cart-line-product-actions">
-			<a class="remove-from-cart" rel="nofollow" href="{$product.remove_from_cart_url}"
-				data-link-action="delete-from-cart" data-id-product="{$product.id_product|escape:'javascript'}"
-				data-id-product-attribute="{$product.id_product_attribute|escape:'javascript'}"
-				data-id-customization="{$product.id_customization|escape:'javascript'}">
-				{if empty($product.is_gift)}
-					<svg class="svgic svgic-down">
-						<use xlink:href="#si-cross"></use>
-					</svg>
-				{/if}
-			</a>
-			{block name='hook_cart_extra_product_actions'}
-				{hook h='displayCartExtraProductActions' product=$product }
-			{/block}
-		</div>
-	</div>
+        </div>
+        <div class="cart-line-product-actions">
+            <a class="remove-from-cart" rel="nofollow" href="{$product.remove_from_cart_url}"
+               data-link-action="delete-from-cart" data-id-product="{$product.id_product|escape:'javascript'}"
+               data-id-product-attribute="{$product.id_product_attribute|escape:'javascript'}"
+               data-id-customization="{$product.id_customization|escape:'javascript'}">
+                {if empty($product.is_gift)}
+                    <svg class="svgic svgic-down">
+                        <use xlink:href="#si-cross"></use>
+                    </svg>
+                {/if}
+            </a>
+            {block name='hook_cart_extra_product_actions'}
+                {hook h='displayCartExtraProductActions' product=$product }
+            {/block}
+        </div>
+    </div>
 
 </div>
