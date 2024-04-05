@@ -4466,7 +4466,11 @@ span.caratteristica {
 #cart .block-promo .promo-code .alert-danger:after {
     border-bottom-color: #ec6552;
 }
-
+#cart .cart-summary-line-cartopdf{
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 16px;
+}
 /* blocchi dei totali */
 #cart .cart-summary-line {
     display: flex;
