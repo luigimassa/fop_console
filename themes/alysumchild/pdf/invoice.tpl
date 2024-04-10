@@ -66,7 +66,7 @@
                             {l s="Di seguito le nostre coordinate bancarie" d='Shop.Pdf' pdf='true'}: </p>
                         <p class="secondo-testo bold">
                             {l s="inserire in traduzione coordinate bancarie 1" d='Shop.Pdf' pdf='true'}<br/>
-                            {l s="inserire in traduzione coordinate bancarie 3" d='Shop.Pdf' pdf='true'}<br/>
+                            {l s="inserire in traduzione coordinate bancarie 2" d='Shop.Pdf' pdf='true'}<br/>
                             {l s="inserire in traduzione coordinate bancarie 3" d='Shop.Pdf' pdf='true'}<b/>
                         </p>
                         <p class="bold big left thanks">
