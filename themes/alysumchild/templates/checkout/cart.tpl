@@ -60,9 +60,7 @@
 
         {block name='cart_summary'}
           <div class="card cart-summary">
-            <div class="cart-summary-line-cartopdf">
-              {widget name="cartopdf" }
-            </div>
+
             {block name='hook_shopping_cart'}
               {hook h='displayShoppingCart'}
             {/block}
