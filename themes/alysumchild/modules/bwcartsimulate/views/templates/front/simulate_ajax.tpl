@@ -15,11 +15,8 @@
                         <div>
                             <span class="label">{l s='Subtotal' d='Shop.Theme.Checkout'}</span>
                             <span class="value">
-											{$cart.subtotals.products.value}<br/>
-           {widget name="bwdisplaydata" hook="costoUnitario" product=$cart.products[0]}
-								<br>
-				({widget name='bwdisplaydata' hook="fetchCaratteristica" id_product=$cart.products[0].id_product id_feature=33})
-
+								{$cart.subtotals.products.value}<br/>
+                                {widget name="bwdisplaydata" hook="costoUnitario" product=$cart.products[0]}
                         </div>
                     </li>
 
