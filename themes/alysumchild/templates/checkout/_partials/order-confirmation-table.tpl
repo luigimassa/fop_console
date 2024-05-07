@@ -30,7 +30,7 @@
                     <div class="order-details-wrapper">
                         <div class="order-details-space">
                             <h3 class="h3 card-title">
-                                {l s='<span>Order reference</span> %reference%' d='Shop.Theme.Checkout' sprintf=['%reference%' => $order.details.reference]}
+                                {l s='<span>Order reference</span> %reference%' d='Shop.Theme.Checkout' sprintf=['%reference%' => $order.details.id]}
                             </h3>
                             <p>{l s='Payment method: %method%' d='Shop.Theme.Checkout' sprintf=['%method%' => $order.details.payment]}
                             </p>

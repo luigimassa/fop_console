@@ -7,7 +7,7 @@
           <div class="col-md-12">
             <div class="success-box">
               {block name='order_confirmation_header'}
-              <h3 class="h1 card-title">{l s='Your order is confirmed' d='Shop.Theme.Checkout'}</h3>
+              <h3 class="h1 card-title">{l s='Your order is <span>confirmed<span>' d='Shop.Theme.Checkout'}</h3>
               {/block}
             </div>
           </div>
