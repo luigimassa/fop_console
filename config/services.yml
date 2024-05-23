@@ -115,6 +115,8 @@ services:
 
   fop.console.module.generate.command:
     class: FOP\Console\Commands\Module\ModuleGenerate
+    calls:
+      - [ setGeneratorConfigurationServices, [ !tagged_iterator fop.console.module_generator.configuration_generator ] ]
     tags: [ console.command ]
 
   fop.console.override.make.command:
@@ -144,3 +146,4 @@ services:
 
 imports:
   - { resource: overriders.yml }
+  - { resource: modules.yml }

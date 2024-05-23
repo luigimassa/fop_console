@@ -21,15 +21,18 @@
 namespace FOP\Console\Commands\Module;
 
 use FOP\Console\Command;
+use FOP\Console\Generator\TwigVariablesDTO;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 class ModuleGenerate extends Command
 {
     protected $filesystem;
     protected $baseControllerFolder;
+    protected $baseConfigFolder;
     protected $baseTestFolder;
     protected $baseFolder;
     protected $moduleName;
@@ -40,15 +43,27 @@ class ModuleGenerate extends Command
     protected $testGeneration = false;
     private $twig;
 
+    /**
+     * @var TwigVariablesDTO|null
+     */
+    private  $configGeneration = null;
+    private array $generatorConfigurationServices = [];
+
     public function __construct()
     {
         parent::__construct();
         $this->filesystem = new Filesystem();
         $this->baseFolder =
             '/fop_console/src/Resources/templates/generate_module_command/module';
-        $this->baseControllerFolder = $this->baseFolder . '/controller';
-        $this->baseViewFolder = $this->baseFolder . '/views';
-        $this->baseTestFolder = $this->baseFolder . '/test';
+        $this->baseControllerFolder = $this->baseFolder.'/controller';
+        $this->baseViewFolder = $this->baseFolder.'/views';
+        $this->baseTestFolder = $this->baseFolder.'/test';
+        $this->baseConfigFolder = $this->baseFolder.'/configuration';
+    }
+
+    public function setGeneratorConfigurationServices(iterable $services)
+    {
+        $this->generatorConfigurationServices = iterator_to_array($services);
     }
 
     /**
@@ -57,192 +72,7 @@ class ModuleGenerate extends Command
     protected function configure(): void
     {
         $this->setName('fop:module:generate')
-            ->setDescription('Scaffold new PrestaShop module')
-        ;
-    }
-
-    protected function createComposerJson($modulename, $namespace)
-    {
-        $composer_code = $this->twig->render(
-            '@Modules' . $this->baseFolder . DIRECTORY_SEPARATOR . 'composer.json.twig',
-            [
-                'module_name' => $modulename,
-                'test' => $this->testGeneration,
-                'name_space_psr4' => str_replace('\\', '\\\\', $namespace),
-            ]
-        );
-        $this->filesystem->dumpFile(
-            $this->getModuleDirectory($modulename) . DIRECTORY_SEPARATOR .
-            'composer.json',
-            $composer_code
-        );
-    }
-
-    protected function createConfig($modulename)
-    {
-        $service_code = $this->twig->render(
-            '@Modules' . $this->baseControllerFolder . DIRECTORY_SEPARATOR . 'services.yml.twig'
-        );
-        $module_config_path =
-            $this->getModuleDirectory($modulename) . DIRECTORY_SEPARATOR . 'config' .
-            DIRECTORY_SEPARATOR . 'admin';
-        $this->filesystem->dumpFile(
-            $module_config_path . DIRECTORY_SEPARATOR . 'services.yml',
-            $service_code
-        );
-    }
-
-    protected function createController($modulename, $namespace)
-    {
-        $controller_code = $this->twig->render(
-            '@Modules' . $this->baseControllerFolder . DIRECTORY_SEPARATOR . 'configuration.php.twig',
-            [
-                'class_name' => 'ConfigurationController',
-                'module_name' => $modulename,
-                'name_space' => $namespace,
-            ]
-        );
-
-        $this->filesystem->dumpFile(
-            $this->getModuleDirectory($modulename) . DIRECTORY_SEPARATOR . 'src' .
-            DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR .
-            'ConfigurationController.php',
-            $controller_code
-        );
-    }
-
-    protected function createControllerForm($modulename, $namespace)
-    {
-        $controller_code = $this->twig->render(
-            '@Modules' . $this->baseControllerFolder . DIRECTORY_SEPARATOR . 'form.php.twig',
-            [
-                'class_name' => 'ConfigurationType',
-                'module_name' => $modulename,
-                'name_space' => $namespace,
-            ]
-        );
-
-        $this->filesystem->dumpFile(
-            $this->getModuleDirectory($modulename) . DIRECTORY_SEPARATOR . 'src' .
-            DIRECTORY_SEPARATOR . 'Form' . DIRECTORY_SEPARATOR . 'Type' .
-            DIRECTORY_SEPARATOR . 'ConfigurationType.php',
-            $controller_code
-        );
-    }
-
-    protected function createControllerTemplate($modulename, $templatename)
-    {
-        $module_view_path =
-            $this->getModuleDirectory($modulename) . DIRECTORY_SEPARATOR . 'views' .
-            DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'admin' .
-            DIRECTORY_SEPARATOR . 'controller';
-        $this->filesystem->mkdir($module_view_path);
-        $this->filesystem->copy(
-            _PS_MODULE_DIR_ . $this->baseControllerFolder . DIRECTORY_SEPARATOR .
-            'template_controller.twig',
-            $module_view_path . DIRECTORY_SEPARATOR . 'admin_configuration.html.twig'
-        );
-    }
-
-    protected function createFrontController($module_name, $front_controller_name)
-    {
-        $front_controller_folder =
-            $this->getModuleDirectory($this->moduleName) . DIRECTORY_SEPARATOR .
-            'controllers' . DIRECTORY_SEPARATOR . 'front';
-
-        $this->filesystem->mkdir($front_controller_folder);
-
-        $model_front_file_name = $this->baseControllerFolder . DIRECTORY_SEPARATOR .
-            'front_controller.php.twig';
-        $front_controller_code = $this->twig->render('@Modules' . $model_front_file_name, [
-            'module_name' => $module_name,
-            'front_controller_name' => $front_controller_name,
-        ]);
-
-        $front_filename =
-            $front_controller_folder . DIRECTORY_SEPARATOR . $front_controller_name .
-            '.php';
-        $this->filesystem->dumpFile($front_filename, $front_controller_code);
-    }
-
-    protected function createFrontControllerJavascript(
-        $module_name,
-        $front_controller_name
-    ) {
-        $js_folder =
-            $this->getModuleDirectory($this->moduleName) . DIRECTORY_SEPARATOR . 'views' .
-            DIRECTORY_SEPARATOR . 'js';
-        $this->filesystem->mkdir($js_folder);
-
-        $js_front_controller_code = $this->twig->render(
-            '@Modules' . $this->baseViewFolder . DIRECTORY_SEPARATOR . 'js'
-            . DIRECTORY_SEPARATOR .
-            'front_controller.js.twig',
-            [
-                'module_name' => $module_name,
-                'front_controller_name' => $front_controller_name,
-            ]
-        );
-        $this->filesystem->dumpFile(
-            $js_folder . DIRECTORY_SEPARATOR . $front_controller_name . '.js',
-            $js_front_controller_code
-        );
-    }
-
-    protected function createMain($modulename)
-    {
-        $controller_code = $this->twig->render(
-            '@Modules' . $this->baseFolder . DIRECTORY_SEPARATOR . 'main.php.twig',
-            [
-                'module_name' => $modulename,
-            ]
-        );
-
-        $this->filesystem->dumpFile(
-            $this->getModuleDirectory($modulename) . DIRECTORY_SEPARATOR . $modulename .
-            '.php',
-            $controller_code
-        );
-    }
-
-    protected function createModule($modulename)
-    {
-        $this->filesystem->mkdir($this->getModuleDirectory($modulename));
-    }
-
-    protected function createRoute($modulename, $namespace)
-    {
-        $module_route_path =
-            $this->getModuleDirectory($modulename) . DIRECTORY_SEPARATOR . 'config';
-        if ($this->filesystem->exists($module_route_path) === false) {
-            $this->filesystem->mkdir($module_route_path);
-        }
-        $route_code = $this->twig->render(
-            '@Modules' . $this->baseControllerFolder . DIRECTORY_SEPARATOR . 'routes.yml.twig',
-            [
-                'module_name' => $modulename,
-                'name_space' => $namespace,
-            ]
-        );
-        $this->filesystem->dumpFile(
-            $module_route_path . DIRECTORY_SEPARATOR . 'routes.yml',
-            $route_code
-        );
-    }
-
-    protected function createTest($modulename)
-    {
-        $module_dir = $this->getModuleDirectory($modulename);
-        $test_dir = $module_dir . DIRECTORY_SEPARATOR . 'test';
-        $this->filesystem->mkdir($test_dir);
-        $this->filesystem->copy(
-            _PS_MODULE_DIR_ . $this->baseTestFolder . DIRECTORY_SEPARATOR . 'bootstrap.php.twig',
-            $test_dir . DIRECTORY_SEPARATOR . 'bootstrap.php'
-        );
-        $this->filesystem->copy(
-            _PS_MODULE_DIR_ . $this->baseTestFolder . DIRECTORY_SEPARATOR . 'phpunit.xml.twig',
-            $module_dir . DIRECTORY_SEPARATOR . 'phpunit.xml'
-        );
+            ->setDescription('Scaffold new PrestaShop module');
     }
 
     /**
@@ -254,8 +84,7 @@ class ModuleGenerate extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->twig = $this->getContainer()
-            ->get('twig')
-        ;
+            ->get('twig');
 
         if ($this->isNewModule === true) {
             $output->writeln('create module folder');
@@ -310,7 +139,16 @@ class ModuleGenerate extends Command
                     $this->frontControllerName
                 );
             }
+            if ($this->configGeneration) {
+                $output->writeln('create configuration file');
+                $this->createConfiguration();
+            }
         }
+    }
+
+    protected function createModule($modulename)
+    {
+        $this->filesystem->mkdir($this->getModuleDirectory($modulename));
     }
 
     /**
@@ -320,7 +158,198 @@ class ModuleGenerate extends Command
      */
     protected function getModuleDirectory($modulename): string
     {
-        return _PS_MODULE_DIR_ . $modulename;
+        return _PS_MODULE_DIR_.$modulename;
+    }
+
+    protected function createMain($modulename)
+    {
+        $controller_code = $this->twig->render(
+            '@Modules'.$this->baseFolder.DIRECTORY_SEPARATOR.'main.php.twig',
+            [
+                'module_name' => $modulename,
+            ]
+        );
+
+        $this->filesystem->dumpFile(
+            $this->getModuleDirectory($modulename).DIRECTORY_SEPARATOR.$modulename.
+            '.php',
+            $controller_code
+        );
+    }
+
+    protected function createComposerJson($modulename, $namespace)
+    {
+        $composer_code = $this->twig->render(
+            '@Modules'.$this->baseFolder.DIRECTORY_SEPARATOR.'composer.json.twig',
+            [
+                'module_name' => $modulename,
+                'test' => $this->testGeneration,
+                'name_space_psr4' => str_replace('\\', '\\\\', $namespace),
+            ]
+        );
+        $this->filesystem->dumpFile(
+            $this->getModuleDirectory($modulename).DIRECTORY_SEPARATOR.
+            'composer.json',
+            $composer_code
+        );
+    }
+
+    protected function createConfig($modulename)
+    {
+        $service_code = $this->twig->render(
+            '@Modules'.$this->baseControllerFolder.DIRECTORY_SEPARATOR.'services.yml.twig'
+        );
+        $module_config_path =
+            $this->getModuleDirectory($modulename).DIRECTORY_SEPARATOR.'config'.
+            DIRECTORY_SEPARATOR.'admin';
+        $this->filesystem->dumpFile(
+            $module_config_path.DIRECTORY_SEPARATOR.'services.yml',
+            $service_code
+        );
+    }
+
+    protected function createRoute($modulename, $namespace)
+    {
+        $module_route_path =
+            $this->getModuleDirectory($modulename).DIRECTORY_SEPARATOR.'config';
+        if ($this->filesystem->exists($module_route_path) === false) {
+            $this->filesystem->mkdir($module_route_path);
+        }
+        $route_code = $this->twig->render(
+            '@Modules'.$this->baseControllerFolder.DIRECTORY_SEPARATOR.'routes.yml.twig',
+            [
+                'module_name' => $modulename,
+                'name_space' => $namespace,
+            ]
+        );
+        $this->filesystem->dumpFile(
+            $module_route_path.DIRECTORY_SEPARATOR.'routes.yml',
+            $route_code
+        );
+    }
+
+    protected function createController($modulename, $namespace)
+    {
+        $controller_code = $this->twig->render(
+            '@Modules'.$this->baseControllerFolder.DIRECTORY_SEPARATOR.'configuration.php.twig',
+            [
+                'class_name' => 'ConfigurationController',
+                'module_name' => $modulename,
+                'name_space' => $namespace,
+            ]
+        );
+
+        $this->filesystem->dumpFile(
+            $this->getModuleDirectory($modulename).DIRECTORY_SEPARATOR.'src'.
+            DIRECTORY_SEPARATOR.'Controller'.DIRECTORY_SEPARATOR.
+            'ConfigurationController.php',
+            $controller_code
+        );
+    }
+
+    protected function createControllerForm($modulename, $namespace)
+    {
+        $controller_code = $this->twig->render(
+            '@Modules'.$this->baseControllerFolder.DIRECTORY_SEPARATOR.'form.php.twig',
+            [
+                'class_name' => 'ConfigurationType',
+                'module_name' => $modulename,
+                'name_space' => $namespace,
+            ]
+        );
+
+        $this->filesystem->dumpFile(
+            $this->getModuleDirectory($modulename).DIRECTORY_SEPARATOR.'src'.
+            DIRECTORY_SEPARATOR.'Form'.DIRECTORY_SEPARATOR.'Type'.
+            DIRECTORY_SEPARATOR.'ConfigurationType.php',
+            $controller_code
+        );
+    }
+
+    protected function createControllerTemplate($modulename, $templatename)
+    {
+        $module_view_path =
+            $this->getModuleDirectory($modulename).DIRECTORY_SEPARATOR.'views'.
+            DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'admin'.
+            DIRECTORY_SEPARATOR.'controller';
+        $this->filesystem->mkdir($module_view_path);
+        $this->filesystem->copy(
+            _PS_MODULE_DIR_.$this->baseControllerFolder.DIRECTORY_SEPARATOR.
+            'template_controller.twig',
+            $module_view_path.DIRECTORY_SEPARATOR.'admin_configuration.html.twig'
+        );
+    }
+
+    protected function createTest($modulename)
+    {
+        $module_dir = $this->getModuleDirectory($modulename);
+        $test_dir = $module_dir.DIRECTORY_SEPARATOR.'test';
+        $this->filesystem->mkdir($test_dir);
+        $this->filesystem->copy(
+            _PS_MODULE_DIR_.$this->baseTestFolder.DIRECTORY_SEPARATOR.'bootstrap.php.twig',
+            $test_dir.DIRECTORY_SEPARATOR.'bootstrap.php'
+        );
+        $this->filesystem->copy(
+            _PS_MODULE_DIR_.$this->baseTestFolder.DIRECTORY_SEPARATOR.'phpunit.xml.twig',
+            $module_dir.DIRECTORY_SEPARATOR.'phpunit.xml'
+        );
+    }
+
+    protected function createFrontController($module_name, $front_controller_name)
+    {
+        $front_controller_folder =
+            $this->getModuleDirectory($this->moduleName).DIRECTORY_SEPARATOR.
+            'controllers'.DIRECTORY_SEPARATOR.'front';
+
+        $this->filesystem->mkdir($front_controller_folder);
+
+        $model_front_file_name = $this->baseControllerFolder.DIRECTORY_SEPARATOR.
+            'front_controller.php.twig';
+        $front_controller_code = $this->twig->render('@Modules'.$model_front_file_name, [
+            'module_name' => $module_name,
+            'front_controller_name' => $front_controller_name,
+        ]);
+
+        $front_filename =
+            $front_controller_folder.DIRECTORY_SEPARATOR.$front_controller_name.
+            '.php';
+        $this->filesystem->dumpFile($front_filename, $front_controller_code);
+    }
+
+    protected function createFrontControllerJavascript(
+        $module_name,
+        $front_controller_name
+    ) {
+        $js_folder =
+            $this->getModuleDirectory($this->moduleName).DIRECTORY_SEPARATOR.'views'.
+            DIRECTORY_SEPARATOR.'js';
+        $this->filesystem->mkdir($js_folder);
+
+        $js_front_controller_code = $this->twig->render(
+            '@Modules'.$this->baseViewFolder.DIRECTORY_SEPARATOR.'js'
+            .DIRECTORY_SEPARATOR.
+            'front_controller.js.twig',
+            [
+                'module_name' => $module_name,
+                'front_controller_name' => $front_controller_name,
+            ]
+        );
+        $this->filesystem->dumpFile(
+            $js_folder.DIRECTORY_SEPARATOR.$front_controller_name.'.js',
+            $js_front_controller_code
+        );
+    }
+
+    private function createConfiguration()
+    {
+
+        foreach ($this->generatorConfigurationServices as $generator) {
+            $generator->setModuleName($this->moduleName);
+            $generator->setTwigValues($this->configGeneration);
+            $generator->generate();
+        }
+
+
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)
@@ -331,31 +360,51 @@ class ModuleGenerate extends Command
             'Please enter the name of the module (ex. testmodule): ',
             'testmodule'
         );
-        $ask_namespace = new Question(
-            'Please enter the name space (ex Test\Module): ',
-            'Test\Module'
-        );
-        $ask_front_controller =
-            new Question('You need add a front controller? [yes/no]: ', 'no');
-        $ask_front_controller_name = new Question(
-            'What\'s the name of the front contoller? [yes/no]: ', 'no'
-        );
-        $ask_phpunit_generation =
-            new Question('You want to add tests? [yes/no]: ', 'no');
 
         $this->moduleName = $helper->ask($input, $output, $ask_module_name);
+
         $this->isNewModule =
             !file_exists($this->getModuleDirectory($this->moduleName));
 
         if ($this->isNewModule === true) {
+
+            $ask_namespace = new Question(
+                'Please enter the name space (ex Test\Module): ',
+                'Test\Module'
+            );
             $this->moduleNamespace = $helper->ask($input, $output, $ask_namespace);
+
+            $ask_phpunit_generation =
+                new Question('You want to add tests? [yes/no]: ', 'no');
             $this->testGeneration =
                 $helper->ask($input, $output, $ask_phpunit_generation) === 'yes';
         }
 
+        $ask_front_controller =
+            new Question('You need add a front controller? [yes/no]: ', 'no');
         if ($helper->ask($input, $output, $ask_front_controller) === 'yes') {
+
+            $ask_front_controller_name = new Question(
+                'What\'s the name of the front contoller? [yes/no]: ', 'no'
+            );
             $this->frontControllerName =
                 $helper->ask($input, $output, $ask_front_controller_name);
+
+        }
+
+        $ask_configuration_generation =
+            new Question('You want add configuration? [yes/no]: ', 'no');
+        if ($helper->ask($input, $output, $ask_configuration_generation) === 'yes') {
+
+            $this->configGeneration = new TwigVariablesDTO();
+            $this->configGeneration->nameSpace = $helper->ask($input, $output, new Question('Name space? : '));
+            $this->configGeneration->serviceNameSpace =
+                $helper->ask($input, $output, new Question('Service name space? (example mymodule.service...): '));
+            $this->configGeneration->className =
+                $helper->ask($input, $output, new Question('Class name? (example BasicData): ', "BasicData"));
+            $converter = new CamelCaseToSnakeCaseNameConverter();
+            $this->configGeneration->serviceName = $converter->normalize($this->configGeneration->className);
+            $this->configGeneration->moduleName = $this->moduleName;
         }
     }
 }

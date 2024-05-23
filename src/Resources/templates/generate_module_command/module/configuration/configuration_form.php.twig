@@ -1,0 +1,24 @@
+<?php
+
+namespace {{nameSpace}}\Form;
+
+
+use {{nameSpace}}\DataConfiguration\{{ className }}TextDataConfiguration;
+use PrestaShop\PrestaShop\Core\Form\FormChoiceProviderInterface;
+use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class {{className}}ConfigurationFormType extends TranslatorAwareType
+{
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add({{className}}TextDataConfiguration::CONFIGNAME, TextType::class, [
+                'label' => $this->trans('xxxx',[], 'Modules.{{ moduleName|capitalize }}.Admin'),
+                'help' => $this->trans('xxxxx',[],'Modules.{{ moduleName|capitalize }}.Admin'),
+            ]);
+    }
+
+}
