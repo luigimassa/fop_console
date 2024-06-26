@@ -6,8 +6,8 @@ class SpokiOverride extends Spoki
     {
         $result = parent::getCustomerPayload($customer, $additional_custom_fields);
 
-        unset($result['first_name']);
-        unset($result['last_name']);
+        $result['first_name'] = '';
+        $result['last_name'] = '';
 
         return $result;
     }
