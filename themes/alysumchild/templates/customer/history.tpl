@@ -63,7 +63,7 @@
               {* Bwlab ---> modificato da reference a ID *}
               <th scope="row">{$order.details.id}</th>
               <td>{$order.details.order_date}</td>
-              <td class="">{$order.totals.total.value}</td>
+              <td class="">{$order.totals.total_including_tax.value}</td>
               <td class="hidden-md-down">{$order.details.payment}</td>
               <td class="order-state">
                 <span class="label label-pill {$order.history.current.contrast}"
