@@ -1,14 +1,6 @@
-parameters:
-  templates_module_generator_base_path: /fop_console/src/Resources/templates/generate_module_command/module
-
 services:
-  fop.console.module_generator.file_generator:
-    abstract: true
-    class: FOP\Console\Generator\FileGenerator
-    arguments:
-      - '@twig'
 
-# configuration generation
+  # configuration generation
   fop.console.module_generator.configuration.yaml_file:
     public: true
     parent: fop.console.module_generator.file_generator

@@ -9,7 +9,7 @@ services:
           - { name: form.type }
 
   {{ serviceNameSpace }}.data.configuration.{{ serviceName }}_text_data_configuration:
-  class: {{ nameSpace }}\DataConfiguration\{{className}}TextDataConfiguration
+      class: {{ nameSpace }}\DataConfiguration\{{className}}TextDataConfiguration
       arguments: [ '@prestashop.adapter.legacy.configuration' ]
 
   {{ serviceNameSpace }}.provider.{{serviceName}}_configuration_text_form_data_provider:

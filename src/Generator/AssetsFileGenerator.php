@@ -15,46 +15,28 @@
  * @author    Friends of Presta <infos@friendsofpresta.org>
  * @copyright since 2020 Friends of Presta
  * @license   https://opensource.org/licenses/AFL-3.0  Academic Free License ("AFL") v. 3.0
- *
  */
 
 namespace FOP\Console\Generator;
 
-class TwigFileGenerator extends FileGenerator
+class AssetsFileGenerator extends FileGenerator
 {
-    private string $moduleFolder;
-
-    public function generate(): void
-    {
-        $from = FileGenerator::$PSMODULEDIR
-            . DIRECTORY_SEPARATOR
-            . $this->templatesBaseFolder
-            . DIRECTORY_SEPARATOR
-            . $this->templateName;
-
-        $moduleFolder = $this->getModuleFolder();
-        $fileNameModule = $this->getFileNameModule();
-
-        $this->filesystem->copy(
-            $from,
-            $moduleFolder.$fileNameModule
-        );
-    }
+    private string $classFolderName;
 
     public function getFileNameModule(): string
     {
-        return DIRECTORY_SEPARATOR . $this->twigValues->serviceName . $this->fileNameSeparator . parent::getFileNameModule();
+        return $this->twigValues->className.$this->fileNameSeparator.$this->fileNameModule;
+    }
+
+    public function setClassFolderName(string $classFolderName): void
+    {
+        $this->classFolderName = $classFolderName;
     }
 
     protected function getModuleFolder(): string
     {
         return $this->getModuleDirectory()
-            . DIRECTORY_SEPARATOR
-            . $this->moduleFolder;
-    }
-
-    public function setModuleFolder(string $moduleFolder): void
-    {
-        $this->moduleFolder = $moduleFolder;
+            .DIRECTORY_SEPARATOR
+            .$this->classFolderName;
     }
 }

@@ -20,11 +20,12 @@
 
 namespace FOP\Console\Generator;
 
-class TwigVariablesDTO
+class ContentFileDTO
 {
     public string $moduleName;
     public string $className;
     public string $nameSpace;
     public string $serviceNameSpace;
     public string $serviceName;
+    public string $frontControllerName;
 }

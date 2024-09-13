@@ -15,7 +15,6 @@
  * @author    Friends of Presta <infos@friendsofpresta.org>
  * @copyright since 2020 Friends of Presta
  * @license   https://opensource.org/licenses/AFL-3.0  Academic Free License ("AFL") v. 3.0
- *
  */
 
 namespace FOP\Console\Generator;
@@ -25,18 +24,25 @@ use Twig\Environment;
 
 abstract class FileGenerator
 {
+    public static string $PSMODULEDIR = _PS_MODULE_DIR_;
     protected string $moduleName;
     protected string $templatesBaseFolder;
     protected Environment $twig;
-    protected TwigVariablesDTO $twigValues;
+    protected ContentFileDTO $twigValues;
     protected string $templateName;
     protected Filesystem $filesystem;
     protected string $fileNameModule;
+    protected string $fileNameSeparator = '_';
 
     public function __construct(Environment $twig)
     {
         $this->twig = $twig;
         $this->filesystem = new Filesystem();
+    }
+
+    public function setFileNameSeparator(string $fileNameSeparator): void
+    {
+        $this->fileNameSeparator = $fileNameSeparator;
     }
 
     public function generate(): void
@@ -90,13 +96,13 @@ abstract class FileGenerator
         $this->templatesBaseFolder = $templatesBaseFolder;
     }
 
-    public function setTwigValues(TwigVariablesDTO $twigValues): void
+    public function setTwigValues(ContentFileDTO $twigValues): void
     {
         $this->twigValues = $twigValues;
     }
 
     protected function getModuleDirectory(): string
     {
-        return _PS_MODULE_DIR_ . $this->moduleName;
+        return FileGenerator::$PSMODULEDIR . $this->moduleName;
     }
 }

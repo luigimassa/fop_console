@@ -20,41 +20,28 @@
 
 namespace FOP\Console\Generator;
 
-class TwigFileGenerator extends FileGenerator
+class StaticFileGenerator extends FileGenerator
 {
-    private string $moduleFolder;
-
     public function generate(): void
     {
-        $from = FileGenerator::$PSMODULEDIR
-            . DIRECTORY_SEPARATOR
-            . $this->templatesBaseFolder
-            . DIRECTORY_SEPARATOR
-            . $this->templateName;
+        $code = $this->twig
+            ->render(
+                '@Modules'
+                .$this->templatesBaseFolder
+                .DIRECTORY_SEPARATOR
+                .$this->templateName,
+                (array)$this->twigValues
+            );
 
         $moduleFolder = $this->getModuleFolder();
         $fileNameModule = $this->getFileNameModule();
 
-        $this->filesystem->copy(
-            $from,
-            $moduleFolder.$fileNameModule
-        );
-    }
-
-    public function getFileNameModule(): string
-    {
-        return DIRECTORY_SEPARATOR . $this->twigValues->serviceName . $this->fileNameSeparator . parent::getFileNameModule();
+        $this->filesystem->dumpFile($moduleFolder.$fileNameModule, $code);
     }
 
     protected function getModuleFolder(): string
     {
-        return $this->getModuleDirectory()
-            . DIRECTORY_SEPARATOR
-            . $this->moduleFolder;
+        return $this->getModuleDirectory().DIRECTORY_SEPARATOR;
     }
 
-    public function setModuleFolder(string $moduleFolder): void
-    {
-        $this->moduleFolder = $moduleFolder;
-    }
 }

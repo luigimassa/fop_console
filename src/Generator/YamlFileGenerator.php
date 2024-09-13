@@ -22,6 +22,7 @@ namespace FOP\Console\Generator;
 
 class YamlFileGenerator extends FileGenerator
 {
+
     protected function getModuleFolder(): string
     {
         return $this->getModuleDirectory()
