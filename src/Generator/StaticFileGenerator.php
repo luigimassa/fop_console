@@ -43,5 +43,4 @@ class StaticFileGenerator extends FileGenerator
     {
         return $this->getModuleDirectory().DIRECTORY_SEPARATOR;
     }
-
 }

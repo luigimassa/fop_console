@@ -39,25 +39,46 @@ services:
     tags:
       - { name: fop.console.module_generator.module_generator }
 
-  fop.console.module_generator.module.phpunit_file:
+  fop.console.module_generator.module.front_phpunit_file:
     public: true
     parent: fop.console.module_generator.file_generator
     class: FOP\Console\Generator\StaticFileGenerator
     calls:
-      - [ setTemplateName, [ 'phpunit.xml.twig' ] ]
+      - [ setTemplateName, [ 'phpunit.front.xml.twig' ] ]
       - [ setTemplatesBaseFolder,[ '%templates_module_generator_base_path%' ] ]
-      - [ setFileNameModule,[ 'phpunit.xml.dit' ] ]
+      - [ setFileNameModule,[ 'phpunit.xml.front' ] ]
+    tags:
+      - { name: fop.console.module_generator.module_generator }
+  fop.console.module_generator.module.admin_phpunit_file:
+    public: true
+    parent: fop.console.module_generator.file_generator
+    class: FOP\Console\Generator\StaticFileGenerator
+    calls:
+      - [ setTemplateName, [ 'phpunit.admin.xml.twig' ] ]
+      - [ setTemplatesBaseFolder,[ '%templates_module_generator_base_path%' ] ]
+      - [ setFileNameModule,[ 'phpunit.xml.admin' ] ]
     tags:
       - { name: fop.console.module_generator.module_generator }
 
-  fop.console.module_generator.module.test_bootstrap_file:
+  fop.console.module_generator.module.test_bootstrap_admin_file:
     public: true
     parent: fop.console.module_generator.file_generator
     class: FOP\Console\Generator\StaticFileGenerator
     calls:
-      - [ setTemplateName, [ 'bootstrap.php.twig' ] ]
+      - [ setTemplateName, [ 'bootstrap.admin.php.twig' ] ]
       - [ setTemplatesBaseFolder,[ '%templates_module_generator_base_path%' ] ]
-      - [ setFileNameModule,[ '/tests/bootstrap.php' ] ]
+      - [ setFileNameModule,[ '/tests/admin/bootstrap.php' ] ]
+    tags:
+      - { name: fop.console.module_generator.module_generator }
+
+  fop.console.module_generator.module.test_bootstrap_front_file:
+    public: true
+    parent: fop.console.module_generator.file_generator
+    class: FOP\Console\Generator\StaticFileGenerator
+    calls:
+      - [ setTemplateName, [ 'bootstrap.front.php.twig' ] ]
+      - [ setTemplatesBaseFolder,[ '%templates_module_generator_base_path%' ] ]
+      - [ setFileNameModule,[ '/tests/front/bootstrap.php' ] ]
     tags:
       - { name: fop.console.module_generator.module_generator }
 

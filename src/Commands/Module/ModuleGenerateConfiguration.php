@@ -78,7 +78,7 @@ class ModuleGenerateConfiguration extends Command
             return;
         }
 
-        $this->configGeneration->nameSpace = $helper->ask($input, $output, new Question('Name space? : '));
+        $this->configGeneration->nameSpace = $helper->ask($input, $output, new Question('Main name space? : '));
         $this->configGeneration->serviceNameSpace =
             $helper->ask($input, $output, new Question('Service name space? (example mymodule.service...): '));
         $this->configGeneration->className =

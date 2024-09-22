@@ -21,12 +21,12 @@
 
         }
 
-        $form => $textForm->createView();
+        $textForm = $textForm->createView();
 
         return $this->render(
             '@Modules/{{moduleName}}/views/templates/admin/controller/{{serviceName}}_configuration_view.html.twig',
             [
-                'form' => $form,
+                'form' => $textForm,
             ]
         );
     }

@@ -1,5 +1,5 @@
 <phpunit
-        bootstrap="tests/bootstrap.php"
+        bootstrap="tests/front/bootstrap.php"
 >
     <php>
         <env name="_PS_IN_TEST_" value="0"/>
@@ -14,7 +14,7 @@
 
     <testsuites>
         <testsuite name="Unit">
-            <directory>tests</directory>
+            <directory>tests/front</directory>
         </testsuite>
     </testsuites>
 </phpunit>

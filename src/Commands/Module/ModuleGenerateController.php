@@ -71,7 +71,7 @@ class ModuleGenerateController extends Command
 
         $this->moduleName = $helper->ask($input, $output, $ask_module_name);
 
-        if (!file_exists(_PS_MODULE_DIR_ . $this->moduleName)) {
+        if (!file_exists(_PS_MODULE_DIR_.$this->moduleName)) {
             $output->writeln('Module does not exist');
 
             return;
@@ -81,13 +81,19 @@ class ModuleGenerateController extends Command
         $this->configGeneration->nameSpace = $helper->ask(
             $input,
             $output,
-            new Question('Name space? : ')
+            new Question('Main name space? : ')
         );
         $this->configGeneration->className = $helper->ask(
             $input,
             $output,
             new Question('Controller name? (eg: ExampleController) : ')
         );
+
+        if (strpos($this->configGeneration->className, 'Controller') === false) {
+            $this->configGeneration->className .= 'Controller';
+        }
+
+
         $this->configGeneration->serviceName = strtolower($this->configGeneration->className);
     }
 }

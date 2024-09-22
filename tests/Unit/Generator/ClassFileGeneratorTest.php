@@ -14,8 +14,6 @@ class ClassFileGeneratorTest extends TestCase
 {
     public function testGenerate()
     {
-
-
         $twig = $this->createMock(Environment::class);
 
         $g = new ClassFileGenerator($twig);

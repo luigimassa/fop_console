@@ -1,9 +1,10 @@
 <?php
-/**
-* <your license here>
-*/
 
 namespace {{ nameSpace }}\Controller;
+
+if (!defined('_PS_VERSION_')) {
+exit;
+}
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Symfony\Component\HttpFoundation\Request;

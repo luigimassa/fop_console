@@ -8,7 +8,7 @@ services:
       - [ setTemplateName, [ 'front_controllerajax.php.twig' ] ]
       - [ setTemplatesBaseFolder,[ '%templates_module_generator_base_path%/front_controller' ] ]
       - [ setFileNameModule,[ '.php' ] ]
-      - [ setClassFolderName,[ 'controller/front/' ] ]
+      - [ setClassFolderName,[ 'controllers/front/' ] ]
     tags:
       - { name: fop.console.module_generator.front_controller_generator }
 

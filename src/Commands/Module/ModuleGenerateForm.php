@@ -39,7 +39,7 @@ class ModuleGenerateForm extends Command
     protected function configure(): void
     {
         $this->setName('fop:module:generate:form')
-            ->setDescription('Scaffold form for backoffice');
+            ->setDescription('Add form type in Prestashop module');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

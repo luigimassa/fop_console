@@ -39,7 +39,7 @@ class ModuleGenerateFrontController extends Command
     protected function configure(): void
     {
         $this->setName('fop:module:generate:front-controller')
-            ->setDescription('Add a grid to a Prestashop module')
+            ->setDescription('Add front controller in Prestashop module')
             ->addOption('add-ajax', null, null, 'Add ajax to the grid');
     }
 

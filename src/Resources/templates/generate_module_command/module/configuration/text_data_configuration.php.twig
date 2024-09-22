@@ -1,6 +1,6 @@
 <?php
 
-namespace {{nameSpace}}\DataConfiguration;
+namespace {{nameSpace}}\Configuration;
 
 
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
@@ -25,14 +25,14 @@ class {{ className }}TextDataConfiguration implements DataConfigurationInterface
     {
         $return = [];
 
-        $return[self::CONFIGNAME] = json_decode($this->configuration->get(static::CONFIGNAME), true);
+        $return[self::CONFIGNAME] = $this->configuration->get(static::CONFIGNAME);
 
         return $return;
     }
 
     public function updateConfiguration(array $configuration): array
     {
-        $this->configuration->set(self::CONFIGNAME, json_encode($configuration[self::CONFIGNAME]));
+        $this->configuration->set(self::CONFIGNAME, $configuration[self::CONFIGNAME]);
         return [];
     }
 

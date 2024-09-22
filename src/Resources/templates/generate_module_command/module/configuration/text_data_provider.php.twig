@@ -2,7 +2,7 @@
 
 namespace {{nameSpace}}\Provider;
 
-use {{ nameSpace }}\DataConfiguration\{{ className }}TextDataConfiguration;
+use {{ nameSpace }}\Configuration\{{ className }}TextDataConfiguration;
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
 
 class {{ className }}ConfigurationTextFormDataProvider implements FormDataProviderInterface
@@ -17,15 +17,14 @@ class {{ className }}ConfigurationTextFormDataProvider implements FormDataProvid
         $this->configurationTextDataConfiguration = $configurationTextDataConfiguration;
     }
 
-    public function getData(): array
+    public function getData()
     {
         return $this->configurationTextDataConfiguration->getConfiguration();
     }
 
-    public function setData(array $data): array
+    public function setData(array $data)
     {
-        return $this->configurationTextDataConfiguration->updateConfiguration($data);
+        $this->configurationTextDataConfiguration->updateConfiguration($data);
     }
-
 
 }

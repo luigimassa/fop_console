@@ -20,7 +20,7 @@ services:
       - [ setTemplateName, [ 'configuration_form.php.twig' ] ]
       - [ setTemplatesBaseFolder,[ '%templates_module_generator_base_path%/configuration' ] ]
       - [ setClassFolderName,[ 'src/Form/' ] ]
-      - [ setFileNameModule,[ 'ConfigurationForm.php' ] ]
+      - [ setFileNameModule,[ 'ConfigurationFormType.php' ] ]
     tags:
       - { name: fop.console.module_generator.configuration_generator }
 
@@ -45,6 +45,8 @@ services:
       - [ setTemplatesBaseFolder,[ '%templates_module_generator_base_path%/configuration' ] ]
       - [ setClassFolderName,[ 'src/Provider/' ] ]
       - [ setFileNameModule,[ 'ConfigurationTextFormDataProvider.php' ] ]
+    tags:
+      - { name: fop.console.module_generator.configuration_generator }
 
   fop.console.module_generator.configuration.controller_twig_file:
     public: true
